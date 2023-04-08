@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">OpenLibrary</string>
+    <string name="app_name">Open Library</string>
+    <string name="search">Search</string>
+    <string name="error">Error</string>
+
+    <string name="SEARCHTEXT_TEST_TAG">SEARCHTEXT_TEST_TAG</string>
+    <string name="ERROR_CONFIRMATION_BUTTON">ERROR CONFIRM BUTTON</string>
+    <string name="search_box_hint">Enter a book title</string>
 </resources>
