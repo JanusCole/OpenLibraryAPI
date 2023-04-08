@@ -4,6 +4,10 @@
 /.idea/
 /.idea/*
 /.idea
+/.idea/gradle.xml
+/.idea/misc.xml
+/.idea/compiler.xml
+/.idea/.gitignore
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
