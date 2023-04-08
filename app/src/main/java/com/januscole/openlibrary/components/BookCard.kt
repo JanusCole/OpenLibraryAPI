@@ -10,6 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.januscole.openlibrary.R
@@ -45,7 +47,7 @@ fun BookCard(
                 ),
                 modifier = Modifier
                     .size(100.dp)
-                    .wrapContentWidth(Alignment.Start)
+                    .wrapContentWidth(Alignment.CenterHorizontally)
                     .padding(5.dp, 0.dp)
             )
         } else {
@@ -56,18 +58,25 @@ fun BookCard(
                 contentDescription = "Image",
                 modifier = Modifier
                     .size(100.dp)
-                    .wrapContentWidth(Alignment.Start)
+                    .wrapContentWidth(Alignment.CenterHorizontally)
                     .padding(5.dp, 0.dp)
             )
         }
         book.title?.let {
             Text(
-                text = it
+                text = it,
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally),
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.ExtraBold
             )
         }
         book.author_name?.forEach {
             Text(
-                text = it
+                text = it,
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally),
+                textAlign = TextAlign.Center
             )
         }
     }
