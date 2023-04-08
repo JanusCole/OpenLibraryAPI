@@ -3,7 +3,12 @@
     <string name="search">Search</string>
     <string name="error">Error</string>
 
-    <string name="SEARCHTEXT_TEST_TAG">SEARCHTEXT_TEST_TAG</string>
-    <string name="ERROR_CONFIRMATION_BUTTON">ERROR CONFIRM BUTTON</string>
     <string name="search_box_hint">Enter a book title</string>
+
+    <string name="SEARCHTEXT_TEST_TAG">SEARCHTEXT_TEST_TAG</string>
+    <string name="ERROR_CONFIRMATION_BUTTON">ERROR_CONFIRMATION_BUTTON</string>
+    <string name="BOOKS_LIST_BACK_BUTTON">BOOKS_LIST_BACK_BUTTON</string>
+    <string name="return_to_search_screen">Return to book search screen</string>
+    <string name="BOOK_RESULT_IMAGE">BOOK_RESULT_IMAGE</string>
+    <string name="search_results">Search Results</string>
 </resources>

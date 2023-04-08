@@ -83,6 +83,9 @@ dependencies {
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
 
+    // Coil image processing
+    implementation "io.coil-kt:coil-compose:$coil_version"
+
     // For tests.
     testImplementation "com.google.dagger:hilt-android-testing:$hilt_android_version"
     // ...with Kotlin.
@@ -102,6 +105,8 @@ dependencies {
     testImplementation "junit:junit:$junit_version"
 
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutine_tests_version"
+
+    testImplementation "app.cash.turbine:turbine:$turbine_version"
 
     // Mockito
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
