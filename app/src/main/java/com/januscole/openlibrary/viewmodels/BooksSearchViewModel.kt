@@ -4,7 +4,7 @@ import android.os.Parcelable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.januscole.openlibrary.data.ApiResult
+import com.januscole.openlibrary.data.BookResult
 import com.januscole.openlibrary.data.models.BookSearchResults
 import com.januscole.openlibrary.use_cases.SearchBooksUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,7 +33,7 @@ class BooksSearchViewModel @Inject constructor(
         viewModelScope.launch {
             savedStateHandle[SEARCH_BOOKS_UI_STATE] = searchBooksUiState.value.copy(isLoading = true)
             when (val result = searchBooksUseCase(bookTitle)) {
-                is ApiResult.Success<*> -> {
+                is BookResult.Success<*> -> {
                     val bookSearchResults = result.data as BookSearchResults
                     if (bookSearchResults.numFound == 0) {
                         savedStateHandle[SEARCH_BOOKS_UI_STATE] = searchBooksUiState.value.copy(isLoading = false, exception = Exception("No Books Found"))
@@ -46,7 +46,7 @@ class BooksSearchViewModel @Inject constructor(
                             )
                     }
                 }
-                is ApiResult.Failure -> {
+                is BookResult.Failure -> {
                     savedStateHandle[SEARCH_BOOKS_UI_STATE] = searchBooksUiState.value.copy(isLoading = false, exception = result.exception)
                 }
             }

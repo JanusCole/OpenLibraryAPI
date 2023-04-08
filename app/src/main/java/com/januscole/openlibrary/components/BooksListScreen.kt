@@ -26,12 +26,14 @@ import com.januscole.openlibrary.viewmodels.BooksListViewModel
 @Composable
 fun BooksListScreen(
     navController: NavController,
-    bookTitle: String,
+    bookTitle: String?,
     booksListViewModel: BooksListViewModel = hiltViewModel()
 ) {
 
     LaunchedEffect(Unit) {
-        booksListViewModel.fetchBooks(bookTitle)
+        bookTitle?.let {
+            booksListViewModel.fetchBooks(it)
+        } ?: navController.navigateUp()
     }
 
     val uiState by booksListViewModel.displayBooksUiState.collectAsState()

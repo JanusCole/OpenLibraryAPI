@@ -4,7 +4,7 @@ import android.os.Parcelable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.januscole.openlibrary.data.ApiResult
+import com.januscole.openlibrary.data.BookResult
 import com.januscole.openlibrary.data.models.Book
 import com.januscole.openlibrary.data.models.BookSearchResults
 import com.januscole.openlibrary.use_cases.SearchBooksUseCase
@@ -34,7 +34,7 @@ class BooksListViewModel @Inject constructor(
         viewModelScope.launch {
             savedStateHandle[DISPLAY_BOOKS_UI_STATE] = displayBooksUiState.value.copy(isLoading = true)
             when (val result = searchBooksUseCase(bookTitle)) {
-                is ApiResult.Success<*> -> {
+                is BookResult.Success<*> -> {
                     savedStateHandle[DISPLAY_BOOKS_UI_STATE] =
                         displayBooksUiState.value.copy(
                             books = (result.data as BookSearchResults).docs,
@@ -42,7 +42,7 @@ class BooksListViewModel @Inject constructor(
                             exception = null
                         )
                 }
-                is ApiResult.Failure -> {
+                is BookResult.Failure -> {
                     savedStateHandle[DISPLAY_BOOKS_UI_STATE] = displayBooksUiState.value.copy(isLoading = false, exception = result.exception)
                 }
             }

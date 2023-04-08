@@ -1,6 +1,6 @@
 package com.januscole.openlibrary.use_cases
 
-import com.januscole.openlibrary.data.ApiResult
+import com.januscole.openlibrary.data.BookResult
 import com.januscole.openlibrary.data.fixtures.MockBookSearchResults
 import com.januscole.openlibrary.data.repository.BookSearchRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -38,7 +38,7 @@ class FetchBookUseCaseTest {
                 MockBookSearchResults().getMockBookSearchResults()
             )
 
-        val expectedResult = ApiResult.Success(MockBookSearchResults().getMockBookSearchResults().docs[0])
+        val expectedResult = BookResult.Success(MockBookSearchResults().getMockBookSearchResults().docs[0])
         val actualResult = fetchBookUseCase.invoke(
             MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA,
             MockBookSearchResults().getMockBookSearchResults().docs[0].key
@@ -62,6 +62,6 @@ class FetchBookUseCaseTest {
             MockBookSearchResults().getMockBookSearchResults().docs[0].key
         )
 
-        assertTrue(actualResult is ApiResult.Failure)
+        assertTrue(actualResult is BookResult.Failure)
     }
 }

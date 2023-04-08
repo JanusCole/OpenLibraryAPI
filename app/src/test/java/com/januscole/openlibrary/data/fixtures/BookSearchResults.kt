@@ -10,6 +10,9 @@ class MockBookSearchResults {
         const val VALID_BOOK_TITLE_SEARCH_CRITERIA = "Valid Search Criteria"
         const val VALID_BOOK_TITLE_SEARCH_TERM_1 = "Valid Search Criteria 1"
         const val VALID_BOOK_TITLE_SEARCH_TERM_2 = "Valid Search Criteria 2"
+        const val VALID_BOOK_ID_SEARCH_CRITERIA = "Valid Search Criteria"
+        const val VALID_BOOK_ID_SEARCH_TERM_1 = "Valid Search Criteria 1"
+        const val VALID_BOOK_ID_SEARCH_TERM_2 = "Valid Search Criteria 2"
     }
 
     fun getMockBookSearchResults(): BookSearchResults {

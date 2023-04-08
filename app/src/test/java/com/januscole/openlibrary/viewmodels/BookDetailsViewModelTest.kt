@@ -1,10 +1,10 @@
 package com.januscole.openlibrary.viewmodels
 
 import androidx.lifecycle.SavedStateHandle
-import app.cash.turbine.test
 import com.januscole.openlibrary.data.BookResult
+import app.cash.turbine.test
 import com.januscole.openlibrary.data.fixtures.MockBookSearchResults
-import com.januscole.openlibrary.use_cases.SearchBooksUseCase
+import com.januscole.openlibrary.use_cases.FetchBookUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
@@ -16,16 +16,16 @@ import org.junit.Test
 import org.mockito.Mockito
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class BooksSearchViewModelTest {
+class BookDetailsViewModelTest {
 
     // Mocks
-    private lateinit var mockSearchBooksUseCase: SearchBooksUseCase
+    private lateinit var mockFetchBookUseCase: FetchBookUseCase
 
     private var mockSavedStateHandle: SavedStateHandle = SavedStateHandle().apply {
-        set(SEARCH_BOOKS_UI_STATE, BooksSearchViewModel.SearchBooksUiState())
+        set(BOOK_DETAILS_UI_STATE, BookDetailsViewModel.BookDetailsUiState())
     }
 
-    private lateinit var booksSearchViewModel: BooksSearchViewModel
+    private lateinit var bookDisplayViewModel: BookDetailsViewModel
 
     private val dispatcher = StandardTestDispatcher()
 
@@ -33,12 +33,12 @@ class BooksSearchViewModelTest {
     fun setup() {
         Dispatchers.setMain(dispatcher)
 
-        mockSearchBooksUseCase = Mockito.mock(
-            SearchBooksUseCase::class.java
+        mockFetchBookUseCase = Mockito.mock(
+            FetchBookUseCase::class.java
         )
 
-        booksSearchViewModel = BooksSearchViewModel(
-            mockSearchBooksUseCase,
+        bookDisplayViewModel = BookDetailsViewModel(
+            mockFetchBookUseCase,
             mockSavedStateHandle
         )
     }
@@ -49,23 +49,23 @@ class BooksSearchViewModelTest {
     }
 
     @Test
-    fun `Searching For A Book Titles Returns A List Of Books`() = runTest {
+    fun `Searching For A Book Id Returns The Correct Book`() = runTest {
 
         // Setup
-        Mockito.`when`(mockSearchBooksUseCase.invoke(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)).thenReturn(
-            BookResult.Success(MockBookSearchResults().getMockBookSearchResults())
+        Mockito.`when`(mockFetchBookUseCase.invoke(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA, MockBookSearchResults.VALID_BOOK_ID_SEARCH_CRITERIA)).thenReturn(
+            BookResult.Success(MockBookSearchResults().getMockBookSearchResults().docs[0])
         )
 
-        val expectedResult = MockBookSearchResults().getMockBookSearchResults()
-        booksSearchViewModel.searchBooks(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)
+        val expectedResult = MockBookSearchResults().getMockBookSearchResults().docs[0]
+        bookDisplayViewModel.fetchBook(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA, MockBookSearchResults.VALID_BOOK_ID_SEARCH_CRITERIA)
 
         // Results
         val job = launch {
-            booksSearchViewModel.searchBooksUiState.test {
+            bookDisplayViewModel.bookDetailsUiState.test {
                 val result = awaitItem()
                 assertEquals(
                     expectedResult,
-                    result.books
+                    result.book
                 )
                 assertNull(result.exception)
                 assertFalse(result.isLoading)
@@ -79,20 +79,20 @@ class BooksSearchViewModelTest {
     fun `Receiving An Error Sets The Error In The UI State`() = runTest {
 
         // Setup
-        Mockito.`when`(mockSearchBooksUseCase.invoke(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)).thenReturn(
+        Mockito.`when`(mockFetchBookUseCase.invoke(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA, MockBookSearchResults.VALID_BOOK_ID_SEARCH_CRITERIA)).thenReturn(
             BookResult.Failure(Exception())
         )
 
         val expectedResult = null
-        booksSearchViewModel.searchBooks(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)
+        bookDisplayViewModel.fetchBook(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA, MockBookSearchResults.VALID_BOOK_ID_SEARCH_CRITERIA)
 
         // Results
         val job = launch {
-            booksSearchViewModel.searchBooksUiState.test {
+            bookDisplayViewModel.bookDetailsUiState.test {
                 val result = awaitItem()
                 assertEquals(
                     expectedResult,
-                    result.books
+                    result.book
                 )
                 assertNotNull(result.exception)
                 assertFalse(result.isLoading)
@@ -106,22 +106,22 @@ class BooksSearchViewModelTest {
     fun `Test Consuming Search Event`() {
         val mockSavedStateHandle: SavedStateHandle = SavedStateHandle().apply {
             set(
-                SEARCH_BOOKS_UI_STATE,
-                BooksSearchViewModel.SearchBooksUiState(
-                    books = MockBookSearchResults().getMockBookSearchResults(),
+                BOOK_DETAILS_UI_STATE,
+                BookDetailsViewModel.BookDetailsUiState(
+                    book = MockBookSearchResults().getMockBookSearchResults().docs[0],
                     isLoading = true,
                     exception = Exception()
                 )
             )
         }
 
-        val booksSearchViewModel = BooksSearchViewModel(
-            mockSearchBooksUseCase,
+        val bookDisplayViewModel = BookDetailsViewModel(
+            mockFetchBookUseCase,
             mockSavedStateHandle
         )
 
-        booksSearchViewModel.consumeSearchEvent()
+        bookDisplayViewModel.consumeFetchEvent()
 
-        assertEquals(booksSearchViewModel.searchBooksUiState.value, BooksSearchViewModel.SearchBooksUiState())
+        assertEquals(bookDisplayViewModel.bookDetailsUiState.value, BookDetailsViewModel.BookDetailsUiState())
     }
 }

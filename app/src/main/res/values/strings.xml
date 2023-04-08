@@ -11,4 +11,9 @@
     <string name="return_to_search_screen">Return to book search screen</string>
     <string name="BOOK_RESULT_IMAGE">BOOK_RESULT_IMAGE</string>
     <string name="search_results">Search Results</string>
+    <string name="BOOK_DETAILS_BACK_BUTTON">BOOK_DETAILS_BACK_BUTTON</string>
+    <string name="return_to_book_listing_screen">Return to book listing screen</string>
+    <string name="BOOK_COVER_IMAGE">BOOK_COVER_IMAGE</string>
+    <string name="book_details">Book Details</string>
+    <string name="book_cover_image">book cover image</string>
 </resources>

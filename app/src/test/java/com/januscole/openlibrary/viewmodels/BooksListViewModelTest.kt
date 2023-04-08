@@ -2,7 +2,7 @@ package com.januscole.openlibrary.viewmodels
 
 import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
-import com.januscole.openlibrary.data.ApiResult
+import com.januscole.openlibrary.data.BookResult
 import com.januscole.openlibrary.data.fixtures.MockBookSearchResults
 import com.januscole.openlibrary.data.models.Book
 import com.januscole.openlibrary.use_cases.SearchBooksUseCase
@@ -54,7 +54,7 @@ class BooksListViewModelTest {
 
         // Setup
         Mockito.`when`(mockSearchBooksUseCase.invoke(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)).thenReturn(
-            ApiResult.Success(MockBookSearchResults().getMockBookSearchResults())
+            BookResult.Success(MockBookSearchResults().getMockBookSearchResults())
         )
 
         val expectedResult = MockBookSearchResults().getMockBookSearchResults().docs
@@ -81,7 +81,7 @@ class BooksListViewModelTest {
 
         // Setup
         Mockito.`when`(mockSearchBooksUseCase.invoke(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)).thenReturn(
-            ApiResult.Failure(Exception())
+            BookResult.Failure(Exception())
         )
 
         val expectedResult = listOf<Book>()
