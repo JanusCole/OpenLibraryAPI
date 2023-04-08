@@ -27,16 +27,21 @@ class BooksSearchViewModel @Inject constructor(
         val exception: Throwable? = null
     ) : Parcelable
 
-    val searchBooksUiState = savedStateHandle.getStateFlow(SEARCH_BOOKS_UI_STATE, SearchBooksUiState())
+    val searchBooksUiState =
+        savedStateHandle.getStateFlow(SEARCH_BOOKS_UI_STATE, SearchBooksUiState())
 
     fun searchBooks(bookTitle: String) {
         viewModelScope.launch {
-            savedStateHandle[SEARCH_BOOKS_UI_STATE] = searchBooksUiState.value.copy(isLoading = true)
+            savedStateHandle[SEARCH_BOOKS_UI_STATE] =
+                searchBooksUiState.value.copy(isLoading = true)
             when (val result = searchBooksUseCase(bookTitle)) {
                 is BookResult.Success<*> -> {
                     val bookSearchResults = result.data as BookSearchResults
                     if (bookSearchResults.numFound == 0) {
-                        savedStateHandle[SEARCH_BOOKS_UI_STATE] = searchBooksUiState.value.copy(isLoading = false, exception = Exception("No Books Found"))
+                        savedStateHandle[SEARCH_BOOKS_UI_STATE] = searchBooksUiState.value.copy(
+                            isLoading = false,
+                            exception = Exception("No Books Found")
+                        )
                     } else {
                         savedStateHandle[SEARCH_BOOKS_UI_STATE] =
                             searchBooksUiState.value.copy(
@@ -47,7 +52,10 @@ class BooksSearchViewModel @Inject constructor(
                     }
                 }
                 is BookResult.Failure -> {
-                    savedStateHandle[SEARCH_BOOKS_UI_STATE] = searchBooksUiState.value.copy(isLoading = false, exception = result.exception)
+                    savedStateHandle[SEARCH_BOOKS_UI_STATE] = searchBooksUiState.value.copy(
+                        isLoading = false,
+                        exception = result.exception
+                    )
                 }
             }
         }

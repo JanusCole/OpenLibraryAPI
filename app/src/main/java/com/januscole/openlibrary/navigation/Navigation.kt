@@ -34,7 +34,8 @@ fun Navigation() {
             route = "${OpenLibraryScreenRoutes.BOOK_DETAILS.route}/{bookTitle}/{bookId}",
             arguments = listOf(
                 navArgument("bookTitle") { type = NavType.StringType },
-                navArgument("bookId") { type = NavType.StringType })
+                navArgument("bookId") { type = NavType.StringType }
+            )
         ) { backStackEntry ->
             BookDetailsScreen(
                 navController = navController,

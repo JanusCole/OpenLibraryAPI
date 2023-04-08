@@ -1,8 +1,8 @@
 package com.januscole.openlibrary.viewmodels
 
 import androidx.lifecycle.SavedStateHandle
-import com.januscole.openlibrary.data.BookResult
 import app.cash.turbine.test
+import com.januscole.openlibrary.data.BookResult
 import com.januscole.openlibrary.data.fixtures.MockBookSearchResults
 import com.januscole.openlibrary.use_cases.FetchBookUseCase
 import kotlinx.coroutines.Dispatchers

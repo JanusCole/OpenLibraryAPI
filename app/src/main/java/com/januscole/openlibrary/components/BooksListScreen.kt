@@ -38,7 +38,6 @@ fun BooksListScreen(
 
     val uiState by booksListViewModel.displayBooksUiState.collectAsState()
 
-
     Box(
         modifier = Modifier.fillMaxSize()
     ) {

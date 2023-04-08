@@ -1,8 +1,8 @@
 package com.januscole.openlibrary.di
 
+import com.januscole.openlibrary.data.repository.BookSearchRepository
 import com.januscole.openlibrary.use_cases.FetchBookUseCase
 import com.januscole.openlibrary.use_cases.SearchBooksUseCase
-import com.januscole.openlibrary.data.repository.BookSearchRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

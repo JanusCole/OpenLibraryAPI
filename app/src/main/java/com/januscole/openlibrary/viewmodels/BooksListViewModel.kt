@@ -28,11 +28,13 @@ class BooksListViewModel @Inject constructor(
         val exception: Throwable? = null
     ) : Parcelable
 
-    val displayBooksUiState = savedStateHandle.getStateFlow(DISPLAY_BOOKS_UI_STATE, DisplayBooksUiState())
+    val displayBooksUiState =
+        savedStateHandle.getStateFlow(DISPLAY_BOOKS_UI_STATE, DisplayBooksUiState())
 
     fun fetchBooks(bookTitle: String) {
         viewModelScope.launch {
-            savedStateHandle[DISPLAY_BOOKS_UI_STATE] = displayBooksUiState.value.copy(isLoading = true)
+            savedStateHandle[DISPLAY_BOOKS_UI_STATE] =
+                displayBooksUiState.value.copy(isLoading = true)
             when (val result = searchBooksUseCase(bookTitle)) {
                 is BookResult.Success<*> -> {
                     savedStateHandle[DISPLAY_BOOKS_UI_STATE] =
@@ -43,7 +45,10 @@ class BooksListViewModel @Inject constructor(
                         )
                 }
                 is BookResult.Failure -> {
-                    savedStateHandle[DISPLAY_BOOKS_UI_STATE] = displayBooksUiState.value.copy(isLoading = false, exception = result.exception)
+                    savedStateHandle[DISPLAY_BOOKS_UI_STATE] = displayBooksUiState.value.copy(
+                        isLoading = false,
+                        exception = result.exception
+                    )
                 }
             }
         }

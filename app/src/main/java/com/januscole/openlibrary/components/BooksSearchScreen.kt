@@ -95,10 +95,14 @@ fun BooksSearchScreen(
                     bookSearchViewModel.searchBooks(searchCriteria)
                 },
                 enabled = !uiState.isLoading && searchCriteria.isNotBlank(),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(dimensionResource(id = R.dimen.standard_horizontal_padding))
                     .clip(RoundedCornerShape(15.dp))
-                    .border(border = BorderStroke(1.dp, Color.Black), shape = RoundedCornerShape(15.dp))
+                    .border(
+                        border = BorderStroke(1.dp, Color.Black),
+                        shape = RoundedCornerShape(15.dp)
+                    )
             ) {
                 Text(
                     text = stringResource(R.string.search),

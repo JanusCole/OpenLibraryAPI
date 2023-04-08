@@ -21,6 +21,7 @@ object NetworkModule {
             .build()
             .create(RetrofitSearch::class.java)
     }
+
     @Singleton
     @Provides
     fun provideBookSearchService(
