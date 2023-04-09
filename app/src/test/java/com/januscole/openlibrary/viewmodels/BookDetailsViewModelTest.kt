@@ -5,7 +5,7 @@ import app.cash.turbine.test
 import com.januscole.openlibrary.data.BookResult
 import com.januscole.openlibrary.data.fixtures.MockBookSearchResults
 import com.januscole.openlibrary.data.models.toBookList
-import com.januscole.openlibrary.use_cases.FetchBookUseCase
+import com.januscole.openlibrary.use_cases.FetchBookUseCaseImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
@@ -20,7 +20,7 @@ import org.mockito.Mockito
 class BookDetailsViewModelTest {
 
     // Mocks
-    private lateinit var mockFetchBookUseCase: FetchBookUseCase
+    private lateinit var mockFetchBookUseCase: FetchBookUseCaseImpl
 
     private var mockSavedStateHandle: SavedStateHandle = SavedStateHandle().apply {
         set(BOOK_DETAILS_UI_STATE, BookDetailsViewModel.BookDetailsUiState())
@@ -35,7 +35,7 @@ class BookDetailsViewModelTest {
         Dispatchers.setMain(dispatcher)
 
         mockFetchBookUseCase = Mockito.mock(
-            FetchBookUseCase::class.java
+            FetchBookUseCaseImpl::class.java
         )
 
         bookDisplayViewModel = BookDetailsViewModel(

@@ -35,7 +35,6 @@ class BooksListScreenTest {
         hiltRule.inject()
         composeRule.activity.setContent {
             OpenLibraryTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
@@ -49,25 +48,54 @@ class BooksListScreenTest {
     @Test
     fun search_valid_criteria() {
         val search = composeRule.activity.getString(R.string.search)
-        val searchTextTestTag = composeRule.activity.getString(R.string.SEARCHTEXT_TEST_TAG)
-        val bookDisplayBackButtonTestTag = composeRule.activity.getString(R.string.BOOK_DETAILS_BACK_BUTTON)
-        val bookResultImageTestTag = composeRule.activity.getString(R.string.BOOK_RESULT_IMAGE)
-        val bookImageTestTag = composeRule.activity.getString(R.string.BOOK_COVER_IMAGE)
+        val searchTextTestTag = composeRule.activity.getString(R.string.SEARCH_TEXT_TEST_TAG)
+        val backButtonTestTag =
+            composeRule.activity.getString(R.string.BOOKS_LIST_BACK_BUTTON_TEST_TAG)
+        val bookSearchResultTestTag = composeRule.activity.getString(R.string.BOOK_SEARCH_RESULT_TEST_TAG)
 
-        // A successful search navigates to the books screen and then to a specific book
-        composeRule.onNodeWithTag(searchTextTestTag).performTextInput(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)
+        // A successful search navigates to the books screen
+        composeRule.onNodeWithTag(searchTextTestTag)
+            .performTextInput(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)
         composeRule.onNodeWithText(search).performClick()
         composeRule.waitUntil {
             composeRule
-                .onAllNodesWithTag(bookResultImageTestTag)
-                .fetchSemanticsNodes().isNotEmpty()
-        }
-        composeRule.onAllNodesWithTag(bookResultImageTestTag)[0].performClick()
-        composeRule.waitUntil {
-            composeRule
-                .onAllNodesWithTag(bookDisplayBackButtonTestTag)
+                .onAllNodesWithTag(backButtonTestTag)
                 .fetchSemanticsNodes().size == 1
         }
-        composeRule.onNodeWithTag(bookImageTestTag).assertIsDisplayed()
+        composeRule.onNodeWithTag(backButtonTestTag).assertIsDisplayed()
+        composeRule.waitUntil {
+            composeRule
+                .onAllNodesWithTag(bookSearchResultTestTag)
+                .fetchSemanticsNodes().isNotEmpty()
+        }
+    }
+
+    @Test
+    fun search_invalid_criteria() {
+        val search = composeRule.activity.getString(R.string.search)
+        val ok = composeRule.activity.getString(R.string.ERROR_CONFIRMATION_BUTTON_TEST_TAG)
+        val errorTag = composeRule.activity.getString(R.string.ERROR_CONFIRMATION_BUTTON_TEST_TAG)
+        val searchTextTestTag = composeRule.activity.getString(R.string.SEARCH_TEXT_TEST_TAG)
+        val backButtonTestTag =
+            composeRule.activity.getString(R.string.BOOKS_LIST_BACK_BUTTON_TEST_TAG)
+
+        // A successful search navigates to the books screen
+        composeRule.onNodeWithTag(searchTextTestTag)
+            .performTextInput(MockBookSearchResults.VARIABLE_ERROR_TITLE_SEARCH_CRITERIA)
+        composeRule.onNodeWithText(search).performClick()
+        composeRule.waitUntil {
+            composeRule
+                .onAllNodesWithTag(backButtonTestTag)
+                .fetchSemanticsNodes().size == 1
+        }
+        composeRule.onNodeWithTag(backButtonTestTag).assertIsDisplayed()
+        composeRule.waitUntil {
+            composeRule
+                .onAllNodesWithTag(errorTag)
+                .fetchSemanticsNodes().size == 1
+        }
+        composeRule.onNodeWithTag(errorTag).assertIsDisplayed()
+        composeRule.onNodeWithTag(ok).performClick()
+        composeRule.onNodeWithTag(errorTag).assertDoesNotExist()
     }
 }

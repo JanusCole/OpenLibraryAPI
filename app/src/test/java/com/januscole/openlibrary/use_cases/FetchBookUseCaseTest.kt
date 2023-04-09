@@ -26,7 +26,7 @@ class FetchBookUseCaseTest {
             BookSearchRepository::class.java
         )
 
-        fetchBookUseCase = FetchBookUseCase(
+        fetchBookUseCase = FetchBookUseCaseImpl(
             mockBookSearchRepository
         )
     }

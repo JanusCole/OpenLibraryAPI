@@ -55,7 +55,7 @@ fun BooksListScreen(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 IconButton(
-                    modifier = Modifier.testTag(stringResource(R.string.BOOKS_LIST_BACK_BUTTON)),
+                    modifier = Modifier.testTag(stringResource(R.string.BOOKS_LIST_BACK_BUTTON_TEST_TAG)),
                     onClick = {
                         navController.navigateUp()
                     }

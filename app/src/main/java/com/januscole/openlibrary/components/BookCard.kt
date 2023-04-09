@@ -25,7 +25,7 @@ fun BookCard(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .testTag(stringResource(R.string.BOOK_RESULT_IMAGE))
+            .testTag(stringResource(R.string.BOOK_SEARCH_RESULT_TEST_TAG))
             .clickable {
                 onClick()
             },
@@ -43,6 +43,7 @@ fun BookCard(
                     id = R.drawable.book_cover
                 ),
                 modifier = Modifier
+                    .testTag(stringResource(R.string.ASYNC_BOOK_COVER_IMAGE_TEST_TAG))
                     .height(dimensionResource(id = R.dimen.book_cover_thumbnail_size))
                     .padding(dimensionResource(id = R.dimen.standard_padding))
             )
@@ -53,8 +54,8 @@ fun BookCard(
                 ),
                 contentDescription = stringResource(R.string.book_cover),
                 modifier = Modifier
+                    .testTag(stringResource(R.string.DEFAULT_BOOK_COVER_IMAGE_TEST_TAG))
                     .size(dimensionResource(id = R.dimen.book_cover_thumbnail_size))
-                    .wrapContentWidth(Alignment.CenterHorizontally)
                     .padding(dimensionResource(id = R.dimen.standard_padding))
             )
         }

@@ -2,7 +2,9 @@ package com.januscole.openlibrary.di
 
 import com.januscole.openlibrary.data.repository.BookSearchRepository
 import com.januscole.openlibrary.use_cases.FetchBookUseCase
+import com.januscole.openlibrary.use_cases.FetchBookUseCaseImpl
 import com.januscole.openlibrary.use_cases.SearchBooksUseCase
+import com.januscole.openlibrary.use_cases.SearchBooksUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,7 +20,7 @@ object UseCaseModule {
     fun provideSearchBooksUseCase(
         bookSearchRepository: BookSearchRepository
     ): SearchBooksUseCase {
-        return SearchBooksUseCase(bookSearchRepository)
+        return SearchBooksUseCaseImpl(bookSearchRepository)
     }
 
     @Singleton
@@ -26,6 +28,6 @@ object UseCaseModule {
     fun provideFetchBookUseCase(
         bookSearchRepository: BookSearchRepository
     ): FetchBookUseCase {
-        return FetchBookUseCase(bookSearchRepository)
+        return FetchBookUseCaseImpl(bookSearchRepository)
     }
 }

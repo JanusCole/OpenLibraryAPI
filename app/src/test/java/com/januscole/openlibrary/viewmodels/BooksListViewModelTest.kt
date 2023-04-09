@@ -7,7 +7,7 @@ import com.januscole.openlibrary.data.fixtures.MockBookSearchResults
 import com.januscole.openlibrary.data.models.Book
 import com.januscole.openlibrary.data.models.IndividualBook
 import com.januscole.openlibrary.data.models.toBookList
-import com.januscole.openlibrary.use_cases.SearchBooksUseCase
+import com.januscole.openlibrary.use_cases.SearchBooksUseCaseImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
@@ -22,7 +22,7 @@ import org.mockito.Mockito
 class BooksListViewModelTest {
 
     // Mocks
-    private lateinit var mockSearchBooksUseCase: SearchBooksUseCase
+    private lateinit var mockSearchBooksUseCase: SearchBooksUseCaseImpl
 
     private var mockSavedStateHandle: SavedStateHandle = SavedStateHandle().apply {
         set(DISPLAY_BOOKS_UI_STATE, BooksListViewModel.DisplayBooksUiState())
@@ -37,7 +37,7 @@ class BooksListViewModelTest {
         Dispatchers.setMain(dispatcher)
 
         mockSearchBooksUseCase = Mockito.mock(
-            SearchBooksUseCase::class.java
+            SearchBooksUseCaseImpl::class.java
         )
 
         booksListViewModel = BooksListViewModel(

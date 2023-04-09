@@ -25,7 +25,7 @@ class SearchBooksUseCaseTest {
             BookSearchRepository::class.java
         )
 
-        searchBooksUseCase = SearchBooksUseCase(
+        searchBooksUseCase = SearchBooksUseCaseImpl(
             mockBookSearchRepository
         )
     }

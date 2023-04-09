@@ -58,7 +58,7 @@ fun BookDetailsScreen(
                 IconButton(
                     modifier = Modifier
                         .align(Alignment.CenterVertically)
-                        .testTag(stringResource(R.string.BOOK_DETAILS_BACK_BUTTON)),
+                        .testTag(stringResource(R.string.BOOK_DETAILS_BACK_BUTTON_TEST_TAG)),
                     onClick = {
                         navController.navigateUp()
                     }
@@ -82,7 +82,7 @@ fun BookDetailsScreen(
             uiState.book?.let { book ->
                 Column(
                     modifier = Modifier
-                        .testTag(stringResource(R.string.BOOK_COVER_IMAGE))
+                        .testTag(stringResource(R.string.BOOK_COVER_IMAGE_TEST_TAG))
                         .fillMaxWidth(),
                     verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.CenterHorizontally
@@ -90,7 +90,7 @@ fun BookDetailsScreen(
                     if (book.cover_url != null) {
                         AsyncImage(
                             model = book.cover_url,
-                            contentDescription = "Book Cover",
+                            contentDescription = stringResource(R.string.book_cover),
                             placeholder = painterResource(
                                 id = R.drawable.book_cover
                             ),
@@ -98,6 +98,7 @@ fun BookDetailsScreen(
                                 id = R.drawable.book_cover
                             ),
                             modifier = Modifier
+                                .testTag(stringResource(R.string.ASYNC_BOOK_COVER_IMAGE_TEST_TAG))
                                 .height(dimensionResource(id = R.dimen.book_cover_full_size))
                                 .padding(dimensionResource(id = R.dimen.standard_padding))
                         )
@@ -106,10 +107,10 @@ fun BookDetailsScreen(
                             painter = painterResource(
                                 id = R.drawable.book_cover
                             ),
-                            contentDescription = stringResource(R.string.book_cover_image),
+                            contentDescription = stringResource(R.string.book_cover),
                             modifier = Modifier
+                                .testTag(stringResource(R.string.DEFAULT_BOOK_COVER_IMAGE_TEST_TAG))
                                 .size(dimensionResource(id = R.dimen.book_cover_full_size))
-                                .wrapContentWidth(Alignment.Start)
                                 .padding(dimensionResource(id = R.dimen.standard_padding))
                         )
                     }

@@ -75,7 +75,7 @@ fun BooksSearchScreen(
                     modifier = Modifier
                         .padding(horizontal = dimensionResource(id = R.dimen.standard_padding))
                         .fillMaxWidth()
-                        .testTag(stringResource(R.string.SEARCHTEXT_TEST_TAG)),
+                        .testTag(stringResource(R.string.SEARCH_TEXT_TEST_TAG)),
                     singleLine = true,
                     trailingIcon = {
                         Icon(

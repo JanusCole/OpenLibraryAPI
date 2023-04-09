@@ -35,7 +35,6 @@ class BookSearchScreenTest {
         hiltRule.inject()
         composeRule.activity.setContent {
             OpenLibraryTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
@@ -65,38 +64,23 @@ class BookSearchScreenTest {
     @Test
     fun search_button_is_enabled() {
         val search = composeRule.activity.getString(R.string.search)
-        val searchTextTestTag = composeRule.activity.getString(R.string.SEARCHTEXT_TEST_TAG)
+        val searchTextTestTag = composeRule.activity.getString(R.string.SEARCH_TEXT_TEST_TAG)
 
         // Make sure the Search button is enabled when a search term is entered
-        composeRule.onNodeWithTag(searchTextTestTag).performTextInput(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)
+        composeRule.onNodeWithTag(searchTextTestTag)
+            .performTextInput(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)
         composeRule.onNodeWithText(search).assertIsEnabled()
     }
 
     @Test
-    fun search_valid_criteria() {
-        val search = composeRule.activity.getString(R.string.search)
-        val searchTextTestTag = composeRule.activity.getString(R.string.SEARCHTEXT_TEST_TAG)
-        val backButtonTestTag = composeRule.activity.getString(R.string.BOOKS_LIST_BACK_BUTTON)
-
-        // A successful search navigates to the books screen
-        composeRule.onNodeWithTag(searchTextTestTag).performTextInput(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)
-        composeRule.onNodeWithText(search).performClick()
-        composeRule.waitUntil {
-            composeRule
-                .onAllNodesWithTag(backButtonTestTag)
-                .fetchSemanticsNodes().size == 1
-        }
-        composeRule.onNodeWithTag(backButtonTestTag).assertIsDisplayed()
-    }
-
-    @Test
-    fun search_invalid_criteria() {
+    fun empty_result_shows_error_message() {
         val search = composeRule.activity.getString(R.string.search)
         val error = composeRule.activity.getString(R.string.error)
-        val searchTextTestTag = composeRule.activity.getString(R.string.SEARCHTEXT_TEST_TAG)
+        val searchTextTestTag = composeRule.activity.getString(R.string.SEARCH_TEXT_TEST_TAG)
 
         // An unsuccessful search displays an error screen
-        composeRule.onNodeWithTag(searchTextTestTag).performTextInput(MockBookSearchResults.INVALID_BOOK_TITLE_SEARCH_CRITERIA)
+        composeRule.onNodeWithTag(searchTextTestTag)
+            .performTextInput(MockBookSearchResults.INVALID_BOOK_TITLE_SEARCH_CRITERIA)
         composeRule.onNodeWithText(search).performClick()
         composeRule.waitUntil {
             composeRule
@@ -107,38 +91,40 @@ class BookSearchScreenTest {
     }
 
     @Test
-    fun search_produces_error() {
+    fun runtime_exception_produces_error() {
         val search = composeRule.activity.getString(R.string.search)
-        val error = composeRule.activity.getString(R.string.error)
-        val searchTextTestTag = composeRule.activity.getString(R.string.SEARCHTEXT_TEST_TAG)
+        val errorTag = composeRule.activity.getString(R.string.ERROR_CONFIRMATION_BUTTON_TEST_TAG)
+        val searchTextTestTag = composeRule.activity.getString(R.string.SEARCH_TEXT_TEST_TAG)
 
-        // An unsuccessful search displays an error screen
-        composeRule.onNodeWithTag(searchTextTestTag).performTextInput("bad data")
+        // Getting a runtime exception displays an error screen
+        composeRule.onNodeWithTag(searchTextTestTag)
+            .performTextInput(MockBookSearchResults.ERROR_TITLE_SEARCH_CRITERIA)
         composeRule.onNodeWithText(search).performClick()
         composeRule.waitUntil {
             composeRule
-                .onAllNodesWithText(error)
+                .onAllNodesWithTag(errorTag)
                 .fetchSemanticsNodes().size == 1
         }
-        composeRule.onNodeWithText(error).assertIsDisplayed()
+        composeRule.onNodeWithTag(errorTag).assertIsDisplayed()
     }
 
     @Test
     fun clicking_OK_Button_on_error_dialog_dismisses_it() {
         val search = composeRule.activity.getString(R.string.search)
-        val error = composeRule.activity.getString(R.string.error)
-        val ok = composeRule.activity.getString(R.string.ERROR_CONFIRMATION_BUTTON)
-        val searchTextTestTag = composeRule.activity.getString(R.string.SEARCHTEXT_TEST_TAG)
+        val errorTag = composeRule.activity.getString(R.string.ERROR_CONFIRMATION_BUTTON_TEST_TAG)
+        val ok = composeRule.activity.getString(R.string.ERROR_CONFIRMATION_BUTTON_TEST_TAG)
+        val searchTextTestTag = composeRule.activity.getString(R.string.SEARCH_TEXT_TEST_TAG)
 
         // An unsuccessful search displays an error screen
-        composeRule.onNodeWithTag(searchTextTestTag).performTextInput("X")
+        composeRule.onNodeWithTag(searchTextTestTag)
+            .performTextInput(MockBookSearchResults.ERROR_TITLE_SEARCH_CRITERIA)
         composeRule.onNodeWithText(search).performClick()
         composeRule.waitUntil {
             composeRule
-                .onAllNodesWithText(error)
+                .onAllNodesWithTag(errorTag)
                 .fetchSemanticsNodes().size == 1
         }
         composeRule.onNodeWithTag(ok).performClick()
-        composeRule.onNodeWithText(error).assertDoesNotExist()
+        composeRule.onNodeWithTag(errorTag).assertDoesNotExist()
     }
 }
