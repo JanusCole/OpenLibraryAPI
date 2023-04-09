@@ -2,6 +2,7 @@ package com.januscole.openlibrary.use_cases
 
 import com.januscole.openlibrary.data.BookResult
 import com.januscole.openlibrary.data.fixtures.MockBookSearchResults
+import com.januscole.openlibrary.data.models.IndividualBook
 import com.januscole.openlibrary.data.models.toBookList
 import com.januscole.openlibrary.data.repository.BookSearchRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -49,6 +50,22 @@ class FetchBookUseCaseTest {
             expectedResult,
             actualResult
         )
+    }
+
+    @Test
+    fun `Book Search Failure Returns An Error ApiResult`() = runTest {
+
+        // Setup
+        Mockito.`when`(mockBookSearchRepository.searchBooks(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)).thenReturn(
+            listOf<IndividualBook>()
+        )
+
+        val actualResult = fetchBookUseCase.invoke(
+            MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA,
+            MockBookSearchResults().getMockBookSearchResults().toBookList()[0].key
+        )
+
+        assertTrue(actualResult is BookResult.Failure)
     }
 
     @Test

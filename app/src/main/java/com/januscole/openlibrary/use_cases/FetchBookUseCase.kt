@@ -11,7 +11,7 @@ class FetchBookUseCase @Inject constructor(
         return try {
             val bookSearchResults = repository.searchBooks(bookTitle).find {
                 it.key == bookId
-            }
+            } ?: return BookResult.Failure(Exception("Book Not Found"))
             BookResult.Success(bookSearchResults)
         } catch (e: Exception) {
             BookResult.Failure(e)
