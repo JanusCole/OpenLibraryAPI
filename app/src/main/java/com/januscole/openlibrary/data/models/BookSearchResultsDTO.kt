@@ -9,4 +9,4 @@ data class BookSearchResultsDTO(
     val start: Int?
 )
 
-fun BookSearchResultsDTO.toBookList(): List<IndividualBook> = docs?.mapNotNull { bookDTO -> bookDTO.toBook() } ?: listOf()
+fun BookSearchResultsDTO.toBookList(): List<Book> = docs?.mapNotNull { bookDTO -> bookDTO.toBook() } ?: listOf()

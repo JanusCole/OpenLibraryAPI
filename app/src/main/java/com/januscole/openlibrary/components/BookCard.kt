@@ -15,12 +15,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import coil.compose.AsyncImage
 import com.januscole.openlibrary.R
-import com.januscole.openlibrary.data.models.IndividualBook
+import com.januscole.openlibrary.data.models.Book
 
 @Composable
 fun BookCard(
     onClick: () -> Unit,
-    book: IndividualBook
+    book: Book
 ) {
     Column(
         modifier = Modifier

@@ -41,7 +41,7 @@ In this repo you'll find:<br>
 * Dependency injection using **[Hilt](https://developer.android.com/jetpack/androidx/releases/hilt)** .<br>
 * Unit and UI tests using Jacoco for determining code coverage.<br>
 * Square's LeakCanary is implemented to detect memory leaks.<br>
-* Internationalized string resources for English, French, and Spanish.<br>
+* Internationalized string resources for English and French.<br>
 * KTLint is included in the build path to enforce formatting standards.<br>
 
 ## Running tests

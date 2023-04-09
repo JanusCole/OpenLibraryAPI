@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import com.januscole.openlibrary.data.BookResult
 import com.januscole.openlibrary.data.fixtures.MockBookSearchResults
-import com.januscole.openlibrary.data.models.IndividualBook
+import com.januscole.openlibrary.data.models.Book
 import com.januscole.openlibrary.data.models.toBookList
 import com.januscole.openlibrary.use_cases.SearchBooksUseCaseImpl
 import kotlinx.coroutines.Dispatchers
@@ -85,7 +85,7 @@ class BooksSearchViewModelTest {
             BookResult.Success(MockBookSearchResults().getEmptyMockBookSearchResults().toBookList())
         )
 
-        val expectedResult = listOf<IndividualBook>()
+        val expectedResult = listOf<Book>()
         booksSearchViewModel.searchBooks(MockBookSearchResults.INVALID_BOOK_TITLE_SEARCH_CRITERIA)
 
         // Results
@@ -112,7 +112,7 @@ class BooksSearchViewModelTest {
             BookResult.Success(MockBookSearchResults().getMockBookSearchResults())
         )
 
-        val expectedResult = listOf<IndividualBook>()
+        val expectedResult = listOf<Book>()
         booksSearchViewModel.searchBooks(MockBookSearchResults.INVALID_BOOK_TITLE_SEARCH_CRITERIA)
 
         // Results
@@ -139,7 +139,7 @@ class BooksSearchViewModelTest {
             BookResult.Failure(Exception())
         )
 
-        val expectedResult = listOf<IndividualBook>()
+        val expectedResult = listOf<Book>()
         booksSearchViewModel.searchBooks(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)
 
         // Results

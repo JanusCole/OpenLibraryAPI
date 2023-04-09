@@ -53,7 +53,7 @@ class BooksListScreenTest {
             composeRule.activity.getString(R.string.BOOKS_LIST_BACK_BUTTON_TEST_TAG)
         val bookSearchResultTestTag = composeRule.activity.getString(R.string.BOOK_SEARCH_RESULT_TEST_TAG)
 
-        // A successful search navigates to the books screen
+        // A successful search navigates to the books listing screen
         composeRule.onNodeWithTag(searchTextTestTag)
             .performTextInput(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)
         composeRule.onNodeWithText(search).performClick()
@@ -71,7 +71,7 @@ class BooksListScreenTest {
     }
 
     @Test
-    fun search_invalid_criteria() {
+    fun runtime_error_shows_error_dialog() {
         val search = composeRule.activity.getString(R.string.search)
         val ok = composeRule.activity.getString(R.string.ERROR_CONFIRMATION_BUTTON_TEST_TAG)
         val errorTag = composeRule.activity.getString(R.string.ERROR_CONFIRMATION_BUTTON_TEST_TAG)
@@ -79,7 +79,7 @@ class BooksListScreenTest {
         val backButtonTestTag =
             composeRule.activity.getString(R.string.BOOKS_LIST_BACK_BUTTON_TEST_TAG)
 
-        // A successful search navigates to the books screen
+        // A runtime error displays an error screen
         composeRule.onNodeWithTag(searchTextTestTag)
             .performTextInput(MockBookSearchResults.VARIABLE_ERROR_TITLE_SEARCH_CRITERIA)
         composeRule.onNodeWithText(search).performClick()

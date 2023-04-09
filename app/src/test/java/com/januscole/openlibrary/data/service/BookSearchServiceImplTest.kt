@@ -1,6 +1,7 @@
 package com.januscole.openlibrary.data.service
 
 import com.januscole.openlibrary.data.fixtures.MockBookSearchResults
+import com.januscole.openlibrary.data.models.toBookList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -13,7 +14,7 @@ import org.mockito.Mockito
 class BookSearchServiceImplTest {
 
     // Mocks
-    private lateinit var mockRetrofitService: RetrofitSearch
+    private lateinit var mockRetrofitService: OpenLibraryAPIRetrofitSearch
 
     // Class under test
     private lateinit var bookSearchService: BookSearchService
@@ -21,10 +22,10 @@ class BookSearchServiceImplTest {
     @Before
     fun setup() {
         mockRetrofitService = Mockito.mock(
-            RetrofitSearch::class.java
+            OpenLibraryAPIRetrofitSearch::class.java
         )
 
-        bookSearchService = BookSearchServiceImpl(mockRetrofitService)
+        bookSearchService = OpenLibraryBookSearchService(mockRetrofitService)
     }
 
     @Test
@@ -35,15 +36,15 @@ class BookSearchServiceImplTest {
             MockBookSearchResults().getMockBookSearchResults()
         )
 
-        val expectedResult = MockBookSearchResults().getMockBookSearchResults()
+        val expectedResult = MockBookSearchResults().getMockBookSearchResults().toBookList()
 
         // Execute the test
         val actualResult = bookSearchService.searchBooks(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)
 
         // Result
-        assertEquals(expectedResult.docs!!.size, actualResult.docs?.size)
-        expectedResult.docs!!.forEachIndexed { index, bookDocument ->
-            assertEquals(bookDocument, actualResult.docs?.get(index))
+        assertEquals(expectedResult.size, actualResult.size)
+        expectedResult.forEachIndexed { index, bookDocument ->
+            assertEquals(bookDocument, actualResult[index])
         }
     }
 

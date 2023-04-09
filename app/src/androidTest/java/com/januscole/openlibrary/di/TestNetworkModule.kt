@@ -1,6 +1,7 @@
 package com.januscole.openlibrary.di
 
-import com.januscole.openlibrary.data.models.BookSearchResultsDTO
+import com.januscole.openlibrary.data.models.Book
+import com.januscole.openlibrary.data.models.toBookList
 import com.januscole.openlibrary.data.service.BookSearchService
 import com.januscole.openlibrary.fixtures.MockBookSearchResults
 import dagger.Module
@@ -16,8 +17,8 @@ object TestNetworkModule {
     @Provides
     fun provideBookDataSource(): BookSearchService {
         return object : BookSearchService {
-            override suspend fun searchBooks(bookTitle: String): BookSearchResultsDTO {
-                return MockBookSearchResults().getMockBookSearchResults()
+            override suspend fun searchBooks(bookTitle: String): List<Book> {
+                return MockBookSearchResults().getMockBookSearchResults().toBookList()
             }
         }
     }

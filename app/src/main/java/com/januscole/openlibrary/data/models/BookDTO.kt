@@ -84,9 +84,9 @@ data class BookDTO(
     val want_to_read_count: Int?
 )
 
-fun BookDTO.toBook(): IndividualBook? {
+fun BookDTO.toBook(): Book? {
     return this.key?.let {
-        IndividualBook(
+        Book(
             cover_url = this.cover_i?.let {
                 String.format(
                     "https://covers.openlibrary.org/b/id/%s.jpg",

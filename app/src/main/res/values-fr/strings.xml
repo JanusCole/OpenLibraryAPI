@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Bibliothèque Ouverte</string>
+    <string name="search_results">Résultats de Recherche</string>
+    <string name="book_details">Détails du Livre</string>
+    <string name="search">Recherche</string>
+    <string name="error">Erreur</string>
+    <string name="standard_error_message">La demande a échoué. Veuillez réessayer.</string>
+    <string name="no_books_found_error_message">Aucun Livre Trouvé</string>
+    <string name="ok">Ok</string>
+
+    <string name="search_box_hint">Entrez un titre de livre</string>
+    <string name="return_to_search_screen">Retour à l\'écran de recherche de livres</string>
+    <string name="return_to_book_listing_screen">Retour à l\'écran de la liste des livres</string>
+    <string name="book_cover">Image de la couverture du livre</string>
+
+</resources>

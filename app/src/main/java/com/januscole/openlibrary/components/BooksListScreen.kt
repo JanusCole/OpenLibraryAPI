@@ -93,8 +93,8 @@ fun BooksListScreen(
                         .padding(dimensionResource(id = R.dimen.standard_padding))
                 )
             }
-            uiState.exception?.message?.let {
-                ErrorMessage(message = it) {
+            uiState.exception?.let {
+                ErrorMessage(message = stringResource(R.string.standard_error_message)) {
                     booksListViewModel.consumeFetchEvent()
                     navController.navigateUp()
                 }

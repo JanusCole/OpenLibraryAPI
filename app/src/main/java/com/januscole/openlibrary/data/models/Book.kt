@@ -13,7 +13,7 @@ data class Book(
     val author_name: List<String>? = null,
     val contributor: List<String>? = null,
     val cover_edition_key: String? = null,
-    val cover_i: Int? = null,
+    val cover_url: String? = null,
     val currently_reading_count: Int? = null,
     val ddc: List<String>? = null,
     val ddc_sort: String? = null,

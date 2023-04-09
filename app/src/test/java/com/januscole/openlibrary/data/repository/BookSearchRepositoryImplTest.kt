@@ -2,6 +2,7 @@ package com.januscole.openlibrary.data.repository
 
 import com.januscole.openlibrary.data.fixtures.MockBookSearchResults
 import com.januscole.openlibrary.data.models.toBook
+import com.januscole.openlibrary.data.models.toBookList
 import com.januscole.openlibrary.data.service.BookSearchService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -33,7 +34,7 @@ class BookSearchRepositoryImplTest {
 
         // Setup
         Mockito.`when`(mockBookSearchService.searchBooks(ArgumentMatchers.anyString())).thenReturn(
-            MockBookSearchResults().getMockBookSearchResults()
+            MockBookSearchResults().getMockBookSearchResults().toBookList()
         )
 
         val expectedResult = MockBookSearchResults().getMockBookSearchResults()
@@ -53,7 +54,7 @@ class BookSearchRepositoryImplTest {
 
         // Setup
         Mockito.`when`(mockBookSearchService.searchBooks(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_TERM_1)).thenReturn(
-            MockBookSearchResults().getMockBookSearchResults()
+            MockBookSearchResults().getMockBookSearchResults().toBookList()
         ).thenThrow(RuntimeException())
 
         bookSearchRepository.searchBooks(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_TERM_1)

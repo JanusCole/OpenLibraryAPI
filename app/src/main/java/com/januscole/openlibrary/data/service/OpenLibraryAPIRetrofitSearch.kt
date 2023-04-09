@@ -6,7 +6,7 @@ import retrofit2.http.Query
 
 const val OpenLibraryAPI = "https://openlibrary.org/"
 
-interface RetrofitSearch : BookDataSource {
+interface OpenLibraryAPIRetrofitSearch {
     @GET("search.json?")
-    override suspend fun searchBooks(@Query("title") bookTitle: String): BookSearchResultsDTO
+    suspend fun searchBooks(@Query("title") bookTitle: String): BookSearchResultsDTO
 }

@@ -116,7 +116,9 @@ fun BookDetailsScreen(
                     }
                     book.author_name?.forEach {
                         Text(
-                            text = it
+                            text = it,
+                            fontSize = MaterialTheme.typography.h5.fontSize,
+                            textAlign = TextAlign.Center
                         )
                     }
                 }
@@ -129,8 +131,8 @@ fun BookDetailsScreen(
                     .padding(dimensionResource(id = R.dimen.standard_padding))
             )
         }
-        uiState.exception?.message?.let {
-            ErrorMessage(message = it) {
+        uiState.exception?.let {
+            ErrorMessage(message = stringResource(R.string.standard_error_message)) {
                 bookDetailsViewModel.consumeFetchEvent()
                 navController.navigateUp()
             }

@@ -13,12 +13,12 @@
     <string name="return_to_book_listing_screen">Return to book listing screen</string>
     <string name="book_cover">Book cover image</string>
 
-    <string name="SEARCH_TEXT_TEST_TAG">SEARCHTEXT_TEST_TAG</string>
-    <string name="ERROR_CONFIRMATION_BUTTON_TEST_TAG">ERROR_CONFIRMATION_BUTTON</string>
-    <string name="BOOKS_LIST_BACK_BUTTON_TEST_TAG">BOOKS_LIST_BACK_BUTTON</string>
-    <string name="BOOK_SEARCH_RESULT_TEST_TAG">BOOK_RESULT_IMAGE</string>
-    <string name="BOOK_DETAILS_BACK_BUTTON_TEST_TAG">BOOK_DETAILS_BACK_BUTTON</string>
-    <string name="BOOK_COVER_IMAGE_TEST_TAG">BOOK_COVER_IMAGE</string>
-    <string name="ASYNC_BOOK_COVER_IMAGE_TEST_TAG">ASYNC_BOOK_COVER_IMAGE</string>
-    <string name="DEFAULT_BOOK_COVER_IMAGE_TEST_TAG">DEFAULT_BOOK_COVER_IMAGE</string>
+    <string name="SEARCH_TEXT_TEST_TAG" translatable="false">SEARCHTEXT_TEST_TAG</string>
+    <string name="ERROR_CONFIRMATION_BUTTON_TEST_TAG" translatable="false">ERROR_CONFIRMATION_BUTTON</string>
+    <string name="BOOKS_LIST_BACK_BUTTON_TEST_TAG" translatable="false">BOOKS_LIST_BACK_BUTTON</string>
+    <string name="BOOK_SEARCH_RESULT_TEST_TAG" translatable="false">BOOK_RESULT_IMAGE</string>
+    <string name="BOOK_DETAILS_BACK_BUTTON_TEST_TAG" translatable="false">BOOK_DETAILS_BACK_BUTTON</string>
+    <string name="BOOK_COVER_IMAGE_TEST_TAG" translatable="false">BOOK_COVER_IMAGE</string>
+    <string name="ASYNC_BOOK_COVER_IMAGE_TEST_TAG" translatable="false">ASYNC_BOOK_COVER_IMAGE</string>
+    <string name="DEFAULT_BOOK_COVER_IMAGE_TEST_TAG" translatable="false">DEFAULT_BOOK_COVER_IMAGE</string>
 </resources>

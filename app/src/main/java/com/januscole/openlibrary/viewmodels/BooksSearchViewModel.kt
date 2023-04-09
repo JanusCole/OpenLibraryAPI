@@ -5,7 +5,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.januscole.openlibrary.data.BookResult
-import com.januscole.openlibrary.data.models.IndividualBook
+import com.januscole.openlibrary.data.models.Book
 import com.januscole.openlibrary.use_cases.SearchBooksUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -22,7 +22,7 @@ class BooksSearchViewModel @Inject constructor(
 
     @Parcelize
     data class SearchBooksUiState(
-        val books: List<IndividualBook> = listOf(),
+        val books: List<Book> = listOf(),
         val isLoading: Boolean = false,
         val exception: Throwable? = null
     ) : Parcelable
@@ -37,7 +37,7 @@ class BooksSearchViewModel @Inject constructor(
             when (val result = searchBooksUseCase(bookTitle)) {
                 is BookResult.Success<*> -> {
                     try {
-                        val bookSearchResults = result.data as List<IndividualBook>
+                        val bookSearchResults = result.data as List<Book>
                         if (bookSearchResults.isEmpty()) {
                             savedStateHandle[SEARCH_BOOKS_UI_STATE] = searchBooksUiState.value.copy(
                                 isLoading = false,

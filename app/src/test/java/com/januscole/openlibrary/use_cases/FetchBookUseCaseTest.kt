@@ -2,7 +2,7 @@ package com.januscole.openlibrary.use_cases
 
 import com.januscole.openlibrary.data.BookResult
 import com.januscole.openlibrary.data.fixtures.MockBookSearchResults
-import com.januscole.openlibrary.data.models.IndividualBook
+import com.januscole.openlibrary.data.models.Book
 import com.januscole.openlibrary.data.models.toBookList
 import com.januscole.openlibrary.data.repository.BookSearchRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -57,7 +57,7 @@ class FetchBookUseCaseTest {
 
         // Setup
         Mockito.`when`(mockBookSearchRepository.searchBooks(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)).thenReturn(
-            listOf<IndividualBook>()
+            listOf<Book>()
         )
 
         val actualResult = fetchBookUseCase.invoke(

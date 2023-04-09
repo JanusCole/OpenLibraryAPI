@@ -123,7 +123,7 @@ fun BooksSearchScreen(
             }
 
             uiState.exception?.let {
-                ErrorMessage(message = it.message ?: stringResource(R.string.standard_error_message)) {
+                ErrorMessage(message = stringResource(R.string.standard_error_message)) {
                     bookSearchViewModel.consumeSearchEvent()
                 }
             }

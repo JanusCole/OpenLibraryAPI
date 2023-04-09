@@ -14,19 +14,19 @@ import retrofit2.converter.gson.GsonConverterFactory
 object NetworkModule {
     @Singleton
     @Provides
-    fun provideBookDataSource(): BookDataSource {
+    fun provideBookDataSource(): OpenLibraryAPIRetrofitSearch {
         return Retrofit.Builder()
             .baseUrl(OpenLibraryAPI)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(RetrofitSearch::class.java)
+            .create(OpenLibraryAPIRetrofitSearch::class.java)
     }
 
     @Singleton
     @Provides
     fun provideBookSearchService(
-        bookDataSource: BookDataSource
+        bookDataSource: OpenLibraryAPIRetrofitSearch
     ): BookSearchService {
-        return BookSearchServiceImpl(bookDataSource)
+        return OpenLibraryBookSearchService(bookDataSource)
     }
 }
