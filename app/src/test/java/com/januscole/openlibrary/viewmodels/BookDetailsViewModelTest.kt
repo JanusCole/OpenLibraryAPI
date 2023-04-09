@@ -120,6 +120,41 @@ class BookDetailsViewModelTest {
     }
 
     @Test
+    fun `Failing Result Cast Sets The Error In The UI State`() = runTest {
+
+        // Setup
+        Mockito.`when`(
+            mockFetchBookUseCase.invoke(
+                MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA,
+                MockBookSearchResults.VALID_BOOK_ID_SEARCH_CRITERIA
+            )
+        ).thenReturn(
+            BookResult.Success(MockBookSearchResults().getMockBookSearchResults())
+        )
+
+        val expectedResult = null
+        bookDisplayViewModel.fetchBook(
+            MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA,
+            MockBookSearchResults.VALID_BOOK_ID_SEARCH_CRITERIA
+        )
+
+        // Results
+        val job = launch {
+            bookDisplayViewModel.bookDetailsUiState.test {
+                val result = awaitItem()
+                assertEquals(
+                    expectedResult,
+                    result.book
+                )
+                assertNotNull(result.exception)
+                assertFalse(result.isLoading)
+            }
+        }
+        advanceTimeBy(500)
+        job.cancel()
+    }
+
+    @Test
     fun `Test Consuming Search Event`() {
         val mockSavedStateHandle: SavedStateHandle = SavedStateHandle().apply {
             set(

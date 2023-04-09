@@ -22,7 +22,7 @@ class BooksSearchViewModel @Inject constructor(
 
     @Parcelize
     data class SearchBooksUiState(
-        val books: List<IndividualBook>? = null,
+        val books: List<IndividualBook> = listOf(),
         val isLoading: Boolean = false,
         val exception: Throwable? = null
     ) : Parcelable
@@ -36,19 +36,27 @@ class BooksSearchViewModel @Inject constructor(
                 searchBooksUiState.value.copy(isLoading = true)
             when (val result = searchBooksUseCase(bookTitle)) {
                 is BookResult.Success<*> -> {
-                    val bookSearchResults = result.data as List<IndividualBook>
-                    if (bookSearchResults.isEmpty()) {
+                    try {
+                        val bookSearchResults = result.data as List<IndividualBook>
+                        if (bookSearchResults.isEmpty()) {
+                            savedStateHandle[SEARCH_BOOKS_UI_STATE] = searchBooksUiState.value.copy(
+                                isLoading = false,
+                                exception = Exception("No Books Found")
+                            )
+                        } else {
+                            savedStateHandle[SEARCH_BOOKS_UI_STATE] =
+                                searchBooksUiState.value.copy(
+                                    books = bookSearchResults,
+                                    isLoading = false,
+                                    exception = null
+                                )
+                        }
+                    } catch (e: Exception) {
+                        // In case the cast to List<IndividualBook> fails
                         savedStateHandle[SEARCH_BOOKS_UI_STATE] = searchBooksUiState.value.copy(
                             isLoading = false,
-                            exception = Exception("No Books Found")
+                            exception = Exception(e.message)
                         )
-                    } else {
-                        savedStateHandle[SEARCH_BOOKS_UI_STATE] =
-                            searchBooksUiState.value.copy(
-                                books = bookSearchResults,
-                                isLoading = false,
-                                exception = null
-                            )
                     }
                 }
                 is BookResult.Failure -> {

@@ -34,12 +34,20 @@ class BookDetailsViewModel @Inject constructor(
             savedStateHandle[BOOK_DETAILS_UI_STATE] = bookDetailsUiState.value.copy(isLoading = true)
             when (val result = fetchBookUseCase(bookTitle, bookId)) {
                 is BookResult.Success<*> -> {
-                    savedStateHandle[BOOK_DETAILS_UI_STATE] =
-                        bookDetailsUiState.value.copy(
-                            book = result.data as IndividualBook,
+                    try {
+                        savedStateHandle[BOOK_DETAILS_UI_STATE] =
+                            bookDetailsUiState.value.copy(
+                                book = result.data as IndividualBook,
+                                isLoading = false,
+                                exception = null
+                            )
+                    } catch (e: Exception) {
+                        // In case the cast to IndividualBook fails
+                        savedStateHandle[BOOK_DETAILS_UI_STATE] = bookDetailsUiState.value.copy(
                             isLoading = false,
-                            exception = null
+                            exception = Exception(e.message)
                         )
+                    }
                 }
                 is BookResult.Failure -> {
                     savedStateHandle[BOOK_DETAILS_UI_STATE] = bookDetailsUiState.value.copy(isLoading = false, exception = result.exception)

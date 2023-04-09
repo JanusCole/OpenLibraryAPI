@@ -5,6 +5,7 @@ import app.cash.turbine.test
 import com.januscole.openlibrary.data.BookResult
 import com.januscole.openlibrary.data.fixtures.MockBookSearchResults
 import com.januscole.openlibrary.data.models.Book
+import com.januscole.openlibrary.data.models.IndividualBook
 import com.januscole.openlibrary.data.models.toBookList
 import com.januscole.openlibrary.use_cases.SearchBooksUseCase
 import kotlinx.coroutines.Dispatchers
@@ -86,6 +87,33 @@ class BooksListViewModelTest {
         )
 
         val expectedResult = listOf<Book>()
+        booksListViewModel.fetchBooks(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)
+
+        // Results
+        val job = launch {
+            booksListViewModel.displayBooksUiState.test {
+                val result = awaitItem()
+                assertEquals(
+                    expectedResult,
+                    result.books
+                )
+                assertNotNull(result.exception)
+                assertFalse(result.isLoading)
+            }
+        }
+        advanceTimeBy(500)
+        job.cancel()
+    }
+
+    @Test
+    fun `Failing Result Cast Sets The Error In The UI State`() = runTest {
+
+        // Setup
+        Mockito.`when`(mockSearchBooksUseCase.invoke(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)).thenReturn(
+            BookResult.Success(MockBookSearchResults().getMockBookSearchResults())
+        )
+
+        val expectedResult = listOf<IndividualBook>()
         booksListViewModel.fetchBooks(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)
 
         // Results

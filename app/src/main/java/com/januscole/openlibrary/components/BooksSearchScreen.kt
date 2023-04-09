@@ -35,7 +35,7 @@ fun BooksSearchScreen(
     val uiState by bookSearchViewModel.searchBooksUiState.collectAsState()
     var searchCriteria by remember { mutableStateOf("") }
 
-    uiState.books?.let {
+    if (uiState.books.isNotEmpty()) {
         // This is my least favorite solution to the problem of one time consumable events in
         // JetPack Compose. However, this is what Google currently recommends and so resistance is futile
         // https://developer.android.com/topic/architecture/ui-layer/events#compose_2

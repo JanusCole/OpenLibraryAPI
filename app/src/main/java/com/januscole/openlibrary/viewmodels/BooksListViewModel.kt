@@ -36,12 +36,20 @@ class BooksListViewModel @Inject constructor(
                 displayBooksUiState.value.copy(isLoading = true)
             when (val result = searchBooksUseCase(bookTitle)) {
                 is BookResult.Success<*> -> {
-                    savedStateHandle[DISPLAY_BOOKS_UI_STATE] =
-                        displayBooksUiState.value.copy(
-                            books = result.data as List<IndividualBook>,
+                    try {
+                        savedStateHandle[DISPLAY_BOOKS_UI_STATE] =
+                            displayBooksUiState.value.copy(
+                                books = result.data as List<IndividualBook>,
+                                isLoading = false,
+                                exception = null
+                            )
+                    } catch (e: Exception) {
+                        // In case the cast to List<IndividualBook> fails
+                        savedStateHandle[DISPLAY_BOOKS_UI_STATE] = displayBooksUiState.value.copy(
                             isLoading = false,
-                            exception = null
+                            exception = Exception(e.message)
                         )
+                    }
                 }
                 is BookResult.Failure -> {
                     savedStateHandle[DISPLAY_BOOKS_UI_STATE] = displayBooksUiState.value.copy(
