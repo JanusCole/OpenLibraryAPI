@@ -18,7 +18,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.januscole.openlibrary.R
@@ -49,7 +48,7 @@ fun BooksSearchScreen(
         Image(
             painter = painterResource(id = R.drawable.background),
             contentDescription = "Abstract Background",
-            contentScale = ContentScale.FillBounds, // or some other scale
+            contentScale = ContentScale.FillBounds,
             modifier = Modifier.matchParentSize()
         )
         Column(
@@ -74,7 +73,7 @@ fun BooksSearchScreen(
                     },
                     maxLines = 1,
                     modifier = Modifier
-                        .padding(horizontal = dimensionResource(id = R.dimen.standard_horizontal_padding))
+                        .padding(horizontal = dimensionResource(id = R.dimen.standard_padding))
                         .fillMaxWidth()
                         .testTag(stringResource(R.string.SEARCHTEXT_TEST_TAG)),
                     singleLine = true,
@@ -97,11 +96,14 @@ fun BooksSearchScreen(
                 enabled = !uiState.isLoading && searchCriteria.isNotBlank(),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(dimensionResource(id = R.dimen.standard_horizontal_padding))
-                    .clip(RoundedCornerShape(15.dp))
+                    .padding(dimensionResource(id = R.dimen.standard_padding))
+                    .clip(RoundedCornerShape(dimensionResource(id = R.dimen.standard_corner_radius)))
                     .border(
-                        border = BorderStroke(1.dp, Color.Black),
-                        shape = RoundedCornerShape(15.dp)
+                        border = BorderStroke(
+                            dimensionResource(id = R.dimen.standard_border_width),
+                            Color.Black
+                        ),
+                        shape = RoundedCornerShape(dimensionResource(id = R.dimen.standard_corner_radius))
                     )
             ) {
                 Text(
@@ -116,12 +118,12 @@ fun BooksSearchScreen(
                 CircularProgressIndicator(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(10.dp)
+                        .padding(dimensionResource(id = R.dimen.standard_padding))
                 )
             }
 
             uiState.exception?.let {
-                ErrorMessage(message = it.message ?: "The request failed. Please try again.") {
+                ErrorMessage(message = it.message ?: stringResource(R.string.standard_error_message)) {
                     bookSearchViewModel.consumeSearchEvent()
                 }
             }

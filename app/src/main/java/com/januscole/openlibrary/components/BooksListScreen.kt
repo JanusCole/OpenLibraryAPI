@@ -13,9 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.januscole.openlibrary.R
@@ -44,7 +44,7 @@ fun BooksListScreen(
         Image(
             painter = painterResource(id = R.drawable.background),
             contentDescription = "Abstract Background",
-            contentScale = ContentScale.FillBounds, // or some other scale
+            contentScale = ContentScale.FillBounds,
             modifier = Modifier.matchParentSize()
         )
         Column(
@@ -64,14 +64,14 @@ fun BooksListScreen(
                         imageVector = Icons.Default.ArrowBack,
                         contentDescription = stringResource(R.string.return_to_search_screen),
                         tint = Color.Black,
-                        modifier = Modifier.size(32.dp)
+                        modifier = Modifier.size(dimensionResource(id = R.dimen.back_button_size))
                     )
                 }
                 Text(
                     text = stringResource(R.string.search_results),
                     fontSize = MaterialTheme.typography.h4.fontSize
                 )
-                Spacer(modifier = Modifier.padding(horizontal = 32.dp))
+                Spacer(modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.back_button_size)))
             }
             uiState.books.let {
                 LazyVerticalGrid(GridCells.Fixed(3)) {
@@ -90,7 +90,7 @@ fun BooksListScreen(
                 CircularProgressIndicator(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(10.dp)
+                        .padding(dimensionResource(id = R.dimen.standard_padding))
                 )
             }
             uiState.exception?.message?.let {

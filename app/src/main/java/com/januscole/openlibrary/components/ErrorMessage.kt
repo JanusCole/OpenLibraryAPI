@@ -25,7 +25,7 @@ fun ErrorMessage(message: String, onClick: () -> Unit) {
                 modifier = Modifier.testTag(stringResource(R.string.ERROR_CONFIRMATION_BUTTON)),
                 onClick = { onClick() }
             ) {
-                Text(text = "Ok")
+                Text(text = stringResource(R.string.ok))
             }
         }
     )

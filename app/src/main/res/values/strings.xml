@@ -16,4 +16,8 @@
     <string name="BOOK_COVER_IMAGE">BOOK_COVER_IMAGE</string>
     <string name="book_details">Book Details</string>
     <string name="book_cover_image">book cover image</string>
+    <string name="ok">Ok</string>
+    <string name="standard_error_message">The request failed. Please try again.</string>
+    <string name="book_cover">Book Cover</string>
+    <string name="no_books_found_error_message">No Books Found</string>
 </resources>

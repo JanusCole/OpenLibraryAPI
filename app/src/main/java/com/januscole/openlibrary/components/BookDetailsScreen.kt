@@ -11,10 +11,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
@@ -45,7 +45,7 @@ fun BookDetailsScreen(
         Image(
             painter = painterResource(id = R.drawable.background),
             contentDescription = "Abstract Background",
-            contentScale = ContentScale.FillBounds, // or some other scale
+            contentScale = ContentScale.FillBounds,
             modifier = Modifier.matchParentSize()
         )
         Column(
@@ -56,7 +56,9 @@ fun BookDetailsScreen(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 IconButton(
-                    modifier = Modifier.testTag(stringResource(R.string.BOOK_DETAILS_BACK_BUTTON)),
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically)
+                        .testTag(stringResource(R.string.BOOK_DETAILS_BACK_BUTTON)),
                     onClick = {
                         navController.navigateUp()
                     }
@@ -65,16 +67,17 @@ fun BookDetailsScreen(
                         imageVector = Icons.Default.ArrowBack,
                         contentDescription = stringResource(R.string.return_to_book_listing_screen),
                         tint = Color.Black,
-                        modifier = Modifier.size(32.dp)
+                        modifier = Modifier.size(dimensionResource(id = R.dimen.back_button_size))
                     )
                 }
                 Text(
                     text = uiState.book?.title ?: stringResource(R.string.book_details),
                     modifier = Modifier
-                        .padding(15.dp, 10.dp),
-                    fontSize = 32.sp
+                        .padding(dimensionResource(id = R.dimen.standard_padding)),
+                    fontSize = MaterialTheme.typography.h4.fontSize,
+                    textAlign = TextAlign.Center
                 )
-                Spacer(modifier = Modifier.padding(horizontal = 32.dp))
+                Spacer(modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.back_button_size)))
             }
             uiState.book?.let { book ->
                 Column(
@@ -95,9 +98,8 @@ fun BookDetailsScreen(
                                 id = R.drawable.book_cover
                             ),
                             modifier = Modifier
-                                .size(100.dp)
-                                .wrapContentWidth(Alignment.Start)
-                                .padding(5.dp, 0.dp)
+                                .height(dimensionResource(id = R.dimen.book_cover_full_size))
+                                .padding(dimensionResource(id = R.dimen.standard_padding))
                         )
                     } else {
                         Image(
@@ -106,9 +108,9 @@ fun BookDetailsScreen(
                             ),
                             contentDescription = stringResource(R.string.book_cover_image),
                             modifier = Modifier
-                                .size(100.dp)
+                                .size(dimensionResource(id = R.dimen.book_cover_full_size))
                                 .wrapContentWidth(Alignment.Start)
-                                .padding(5.dp, 0.dp)
+                                .padding(dimensionResource(id = R.dimen.standard_padding))
                         )
                     }
                     book.author_name?.forEach {
@@ -123,7 +125,7 @@ fun BookDetailsScreen(
             CircularProgressIndicator(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(10.dp)
+                    .padding(dimensionResource(id = R.dimen.standard_padding))
             )
         }
         uiState.exception?.message?.let {

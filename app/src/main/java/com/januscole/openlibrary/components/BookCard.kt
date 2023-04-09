@@ -8,11 +8,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.januscole.openlibrary.R
 import com.januscole.openlibrary.data.models.IndividualBook
@@ -35,7 +35,7 @@ fun BookCard(
         if (book.cover_url != null) {
             AsyncImage(
                 model = book.cover_url,
-                contentDescription = "Book Cover",
+                contentDescription = stringResource(R.string.book_cover),
                 placeholder = painterResource(
                     id = R.drawable.book_cover
                 ),
@@ -43,20 +43,19 @@ fun BookCard(
                     id = R.drawable.book_cover
                 ),
                 modifier = Modifier
-                    .size(100.dp)
-                    .wrapContentWidth(Alignment.CenterHorizontally)
-                    .padding(5.dp, 0.dp)
+                    .height(dimensionResource(id = R.dimen.book_cover_thumbnail_size))
+                    .padding(dimensionResource(id = R.dimen.standard_padding))
             )
         } else {
             Image(
                 painter = painterResource(
                     id = R.drawable.book_cover
                 ),
-                contentDescription = "Image",
+                contentDescription = stringResource(R.string.book_cover),
                 modifier = Modifier
-                    .size(100.dp)
+                    .size(dimensionResource(id = R.dimen.book_cover_thumbnail_size))
                     .wrapContentWidth(Alignment.CenterHorizontally)
-                    .padding(5.dp, 0.dp)
+                    .padding(dimensionResource(id = R.dimen.standard_padding))
             )
         }
         book.title?.let {
