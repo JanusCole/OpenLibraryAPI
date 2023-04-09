@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Book(
+data class IndividualBook(
     val _version_: Long? = null,
     val already_read_count: Int? = null,
     val author_alternative_name: List<String>? = null,
@@ -13,7 +13,7 @@ data class Book(
     val author_name: List<String>? = null,
     val contributor: List<String>? = null,
     val cover_edition_key: String? = null,
-    val cover_i: Int? = null,
+    val cover_url: String? = null,
     val currently_reading_count: Int? = null,
     val ddc: List<String>? = null,
     val ddc_sort: String? = null,

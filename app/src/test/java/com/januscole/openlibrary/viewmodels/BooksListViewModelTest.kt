@@ -5,6 +5,7 @@ import app.cash.turbine.test
 import com.januscole.openlibrary.data.BookResult
 import com.januscole.openlibrary.data.fixtures.MockBookSearchResults
 import com.januscole.openlibrary.data.models.Book
+import com.januscole.openlibrary.data.models.toBookList
 import com.januscole.openlibrary.use_cases.SearchBooksUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -54,10 +55,10 @@ class BooksListViewModelTest {
 
         // Setup
         Mockito.`when`(mockSearchBooksUseCase.invoke(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)).thenReturn(
-            BookResult.Success(MockBookSearchResults().getMockBookSearchResults())
+            BookResult.Success(MockBookSearchResults().getMockBookSearchResults().toBookList())
         )
 
-        val expectedResult = MockBookSearchResults().getMockBookSearchResults().docs
+        val expectedResult = MockBookSearchResults().getMockBookSearchResults().toBookList()
         booksListViewModel.fetchBooks(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)
 
         // Results
@@ -109,7 +110,7 @@ class BooksListViewModelTest {
             set(
                 DISPLAY_BOOKS_UI_STATE,
                 BooksListViewModel.DisplayBooksUiState(
-                    books = MockBookSearchResults().getMockBookSearchResults().docs,
+                    books = MockBookSearchResults().getMockBookSearchResults().toBookList(),
                     isLoading = true,
                     exception = Exception()
                 )

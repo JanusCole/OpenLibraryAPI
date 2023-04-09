@@ -1,7 +1,7 @@
 package com.januscole.openlibrary.fixtures
 
 import com.google.gson.Gson
-import com.januscole.openlibrary.data.models.BookSearchResults
+import com.januscole.openlibrary.data.models.BookSearchResultsDTO
 
 @Suppress("SpellCheckingInspection")
 class MockBookSearchResults {
@@ -13,14 +13,14 @@ class MockBookSearchResults {
         const val VALID_BOOK_TITLE_SEARCH_TERM_2 = "Valid Search Criteria 2"
     }
 
-    fun getMockBookSearchResults(): BookSearchResults {
+    fun getMockBookSearchResults(): BookSearchResultsDTO {
         val gson = Gson()
-        return gson.fromJson(BookSearchResultsJSON, BookSearchResults::class.java)
+        return gson.fromJson(BookSearchResultsJSON, BookSearchResultsDTO::class.java)
     }
 
-    fun getEmptyMockBookSearchResults(): BookSearchResults {
+    fun getEmptyMockBookSearchResults(): BookSearchResultsDTO {
         val gson = Gson()
-        return gson.fromJson(BookSearchResultsJSON, BookSearchResults::class.java).copy(numFound = 0)
+        return gson.fromJson(BookSearchResultsJSON, BookSearchResultsDTO::class.java).copy(docs = listOf())
     }
 }
 

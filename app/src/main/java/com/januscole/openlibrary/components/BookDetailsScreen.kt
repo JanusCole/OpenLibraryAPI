@@ -84,12 +84,9 @@ fun BookDetailsScreen(
                     verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    if (book.cover_i != null) {
+                    if (book.cover_url != null) {
                         AsyncImage(
-                            model = String.format(
-                                "https://covers.openlibrary.org/b/id/%s.jpg",
-                                book.cover_i.toString()
-                            ),
+                            model = book.cover_url,
                             contentDescription = "Book Cover",
                             placeholder = painterResource(
                                 id = R.drawable.book_cover
@@ -121,18 +118,18 @@ fun BookDetailsScreen(
                     }
                 }
             }
-            if (uiState.isLoading) {
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp)
-                )
-            }
-            uiState.exception?.message?.let {
-                ErrorMessage(message = it) {
-                    bookDetailsViewModel.consumeFetchEvent()
-                    navController.navigateUp()
-                }
+        }
+        if (uiState.isLoading) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp)
+            )
+        }
+        uiState.exception?.message?.let {
+            ErrorMessage(message = it) {
+                bookDetailsViewModel.consumeFetchEvent()
+                navController.navigateUp()
             }
         }
     }

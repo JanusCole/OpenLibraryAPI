@@ -2,6 +2,7 @@ package com.januscole.openlibrary.use_cases
 
 import com.januscole.openlibrary.data.BookResult
 import com.januscole.openlibrary.data.fixtures.MockBookSearchResults
+import com.januscole.openlibrary.data.models.toBookList
 import com.januscole.openlibrary.data.repository.BookSearchRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -35,13 +36,13 @@ class FetchBookUseCaseTest {
         // Setup
         Mockito.`when`(mockBookSearchRepository.searchBooks(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA))
             .thenReturn(
-                MockBookSearchResults().getMockBookSearchResults()
+                MockBookSearchResults().getMockBookSearchResults().toBookList()
             )
 
-        val expectedResult = BookResult.Success(MockBookSearchResults().getMockBookSearchResults().docs[0])
+        val expectedResult = BookResult.Success(MockBookSearchResults().getMockBookSearchResults().toBookList()[0])
         val actualResult = fetchBookUseCase.invoke(
             MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA,
-            MockBookSearchResults().getMockBookSearchResults().docs[0].key
+            MockBookSearchResults().getMockBookSearchResults().toBookList()[0].key
         )
 
         assertEquals(
@@ -59,7 +60,7 @@ class FetchBookUseCaseTest {
 
         val actualResult = fetchBookUseCase.invoke(
             MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA,
-            MockBookSearchResults().getMockBookSearchResults().docs[0].key
+            MockBookSearchResults().getMockBookSearchResults().toBookList()[0].key
         )
 
         assertTrue(actualResult is BookResult.Failure)

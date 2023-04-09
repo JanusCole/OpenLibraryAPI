@@ -15,12 +15,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.januscole.openlibrary.R
-import com.januscole.openlibrary.data.models.Book
+import com.januscole.openlibrary.data.models.IndividualBook
 
 @Composable
 fun BookCard(
     onClick: () -> Unit,
-    book: Book
+    book: IndividualBook
 ) {
     Column(
         modifier = Modifier
@@ -32,12 +32,9 @@ fun BookCard(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (book.cover_i != null) {
+        if (book.cover_url != null) {
             AsyncImage(
-                model = String.format(
-                    "https://covers.openlibrary.org/b/id/%s.jpg",
-                    book.cover_i.toString()
-                ),
+                model = book.cover_url,
                 contentDescription = "Book Cover",
                 placeholder = painterResource(
                     id = R.drawable.book_cover

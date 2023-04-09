@@ -9,8 +9,8 @@ class FetchBookUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(bookTitle: String, bookId: String): BookResult {
         return try {
-            val bookSearchResults = repository.searchBooks(bookTitle).docs.find {
-                it.key.contains(bookId)
+            val bookSearchResults = repository.searchBooks(bookTitle).find {
+                it.key == bookId
             }
             BookResult.Success(bookSearchResults)
         } catch (e: Exception) {

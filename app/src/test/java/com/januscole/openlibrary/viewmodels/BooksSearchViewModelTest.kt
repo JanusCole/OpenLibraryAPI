@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import com.januscole.openlibrary.data.BookResult
 import com.januscole.openlibrary.data.fixtures.MockBookSearchResults
+import com.januscole.openlibrary.data.models.toBookList
 import com.januscole.openlibrary.use_cases.SearchBooksUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -53,10 +54,10 @@ class BooksSearchViewModelTest {
 
         // Setup
         Mockito.`when`(mockSearchBooksUseCase.invoke(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)).thenReturn(
-            BookResult.Success(MockBookSearchResults().getMockBookSearchResults())
+            BookResult.Success(MockBookSearchResults().getMockBookSearchResults().toBookList())
         )
 
-        val expectedResult = MockBookSearchResults().getMockBookSearchResults()
+        val expectedResult = MockBookSearchResults().getMockBookSearchResults().toBookList()
         booksSearchViewModel.searchBooks(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)
 
         // Results
@@ -68,6 +69,33 @@ class BooksSearchViewModelTest {
                     result.books
                 )
                 assertNull(result.exception)
+                assertFalse(result.isLoading)
+            }
+        }
+        advanceTimeBy(500)
+        job.cancel()
+    }
+
+    @Test
+    fun `Finding No Book Results Sets The Error In The UI State`() = runTest {
+
+        // Setup
+        Mockito.`when`(mockSearchBooksUseCase.invoke(MockBookSearchResults.INVALID_BOOK_TITLE_SEARCH_CRITERIA)).thenReturn(
+            BookResult.Success(MockBookSearchResults().getEmptyMockBookSearchResults().toBookList())
+        )
+
+        val expectedResult = null
+        booksSearchViewModel.searchBooks(MockBookSearchResults.INVALID_BOOK_TITLE_SEARCH_CRITERIA)
+
+        // Results
+        val job = launch {
+            booksSearchViewModel.searchBooksUiState.test {
+                val result = awaitItem()
+                assertEquals(
+                    expectedResult,
+                    result.books
+                )
+                assertNotNull(result.exception)
                 assertFalse(result.isLoading)
             }
         }
@@ -108,7 +136,7 @@ class BooksSearchViewModelTest {
             set(
                 SEARCH_BOOKS_UI_STATE,
                 BooksSearchViewModel.SearchBooksUiState(
-                    books = MockBookSearchResults().getMockBookSearchResults(),
+                    books = MockBookSearchResults().getMockBookSearchResults().toBookList(),
                     isLoading = true,
                     exception = Exception()
                 )

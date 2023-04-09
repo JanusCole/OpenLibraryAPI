@@ -41,9 +41,9 @@ class BookSearchServiceImplTest {
         val actualResult = bookSearchService.searchBooks(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)
 
         // Result
-        assertEquals(expectedResult.docs.size, actualResult.docs.size)
-        expectedResult.docs.forEachIndexed { index, bookDocument ->
-            assertEquals(bookDocument, actualResult.docs[index])
+        assertEquals(expectedResult.docs!!.size, actualResult.docs?.size)
+        expectedResult.docs!!.forEachIndexed { index, bookDocument ->
+            assertEquals(bookDocument, actualResult.docs?.get(index))
         }
     }
 

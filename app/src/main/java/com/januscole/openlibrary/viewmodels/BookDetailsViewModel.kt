@@ -5,7 +5,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.januscole.openlibrary.data.BookResult
-import com.januscole.openlibrary.data.models.Book
+import com.januscole.openlibrary.data.models.IndividualBook
 import com.januscole.openlibrary.use_cases.FetchBookUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -22,7 +22,7 @@ class BookDetailsViewModel @Inject constructor(
 
     @Parcelize
     data class BookDetailsUiState(
-        val book: Book? = null,
+        val book: IndividualBook? = null,
         val isLoading: Boolean = false,
         val exception: Throwable? = null
     ) : Parcelable
@@ -36,7 +36,7 @@ class BookDetailsViewModel @Inject constructor(
                 is BookResult.Success<*> -> {
                     savedStateHandle[BOOK_DETAILS_UI_STATE] =
                         bookDetailsUiState.value.copy(
-                            book = result.data as Book,
+                            book = result.data as IndividualBook,
                             isLoading = false,
                             exception = null
                         )

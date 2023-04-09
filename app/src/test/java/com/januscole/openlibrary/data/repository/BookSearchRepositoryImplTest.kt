@@ -1,6 +1,7 @@
 package com.januscole.openlibrary.data.repository
 
 import com.januscole.openlibrary.data.fixtures.MockBookSearchResults
+import com.januscole.openlibrary.data.models.toBook
 import com.januscole.openlibrary.data.service.BookSearchService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -41,9 +42,9 @@ class BookSearchRepositoryImplTest {
         val actualResult = bookSearchRepository.searchBooks(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)
 
         // Result
-        assertEquals(expectedResult.docs.size, actualResult.docs.size)
-        expectedResult.docs.forEachIndexed { index, bookDocument ->
-            assertEquals(bookDocument, actualResult.docs[index])
+        assertEquals(expectedResult.docs!!.size, actualResult.size)
+        expectedResult.docs!!.forEachIndexed { index, bookDocument ->
+            assertEquals(bookDocument.toBook(), actualResult[index])
         }
     }
 
@@ -63,9 +64,9 @@ class BookSearchRepositoryImplTest {
         val actualResult = bookSearchRepository.searchBooks(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_TERM_1)
 
         // Result
-        assertEquals(expectedResult.docs.size, actualResult.docs.size)
-        expectedResult.docs.forEachIndexed { index, bookDocument ->
-            assertEquals(bookDocument, actualResult.docs[index])
+        assertEquals(expectedResult.docs!!.size, actualResult.size)
+        expectedResult.docs!!.forEachIndexed { index, bookDocument ->
+            assertEquals(bookDocument.toBook(), actualResult[index])
         }
     }
 

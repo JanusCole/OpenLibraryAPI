@@ -1,7 +1,7 @@
 package com.januscole.openlibrary.data.repository
 
-import com.januscole.openlibrary.data.models.BookSearchResults
+import com.januscole.openlibrary.data.models.IndividualBook
 
 interface BookSearchRepository {
-    suspend fun searchBooks(bookTitle: String): BookSearchResults
+    suspend fun searchBooks(bookTitle: String): List<IndividualBook>
 }
