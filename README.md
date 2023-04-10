@@ -1,6 +1,6 @@
 <img src="JanusColeLogo.png"> 
 
-## Open Library book search in Kotlin with Clean Architecture/MVVM and Jetpack Compose
+## Open Library book search in Kotlin with MVVM and Jetpack Compose
 
 > An Android application which allows a user to search for a book with Open Library.
 
@@ -60,6 +60,13 @@ or
 Find the test results here: app/build/reports/tests/testDebugUnitTest/index.html
 Find the coverage report here: app/build/reports/coverage/test/debug/index.html
 
+That said, while Jacoco is the industry standard for determining code coverage, I find that it is<br>
+frequently wrong. Below is an example where Intellij's built in code coverage disagrees with Jacoco.<br>
+And I'm pretty sure that Intellij is correct in this case. So I take Jacoco results with a grain of salt.<br> 
+
+<img src="screens/intellij.png" height="200"><br><br>
+<img src="screens/jacoco.png" height="200">
+
 ## Screen Shots
 
 <table>
@@ -79,16 +86,3 @@ Find the coverage report here: app/build/reports/coverage/test/debug/index.html
 
 </tr>
 </table>
-
-TODO
-Improve UI design
-Add search results sub title
-Add screen transition animations
-Center book title on book details screen
-Set proper image sizes
-Maybe add sorting or filtering?
-Flex all error states
-Make sure null values don't get passed as parameters
-Move everything to resource folders
-Improve image URl formatting
-Take screen shots of the finalized design for this readme

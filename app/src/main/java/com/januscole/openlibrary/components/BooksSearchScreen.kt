@@ -18,6 +18,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.januscole.openlibrary.R
@@ -59,7 +60,8 @@ fun BooksSearchScreen(
             ) {
                 Text(
                     text = stringResource(id = R.string.app_name),
-                    fontSize = MaterialTheme.typography.h4.fontSize
+                    fontSize = MaterialTheme.typography.h4.fontSize,
+                    textAlign = TextAlign.Center
                 )
             }
             Row(

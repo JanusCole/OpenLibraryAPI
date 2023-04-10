@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.januscole.openlibrary.R
@@ -69,7 +70,8 @@ fun BooksListScreen(
                 }
                 Text(
                     text = stringResource(R.string.search_results),
-                    fontSize = MaterialTheme.typography.h4.fontSize
+                    fontSize = MaterialTheme.typography.h4.fontSize,
+                    textAlign = TextAlign.Center
                 )
                 Spacer(modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.back_button_size)))
             }

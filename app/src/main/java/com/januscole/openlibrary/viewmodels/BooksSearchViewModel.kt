@@ -32,7 +32,8 @@ class BooksSearchViewModel @Inject constructor(
         savedStateHandle.getStateFlow(SEARCH_BOOKS_UI_STATE, SearchBooksUiState())
 
     fun updateSearchTerm(newSearchTerm: String) {
-        savedStateHandle[SEARCH_BOOKS_UI_STATE] = searchBooksUiState.value.copy(searchTerm = newSearchTerm)
+        savedStateHandle[SEARCH_BOOKS_UI_STATE] =
+            searchBooksUiState.value.copy(searchTerm = newSearchTerm)
     }
 
     fun searchBooks() {
@@ -76,6 +77,7 @@ class BooksSearchViewModel @Inject constructor(
     }
 
     fun consumeSearchEvent() {
-        savedStateHandle[SEARCH_BOOKS_UI_STATE] = SearchBooksUiState()
+        savedStateHandle[SEARCH_BOOKS_UI_STATE] =
+            SearchBooksUiState(searchTerm = searchBooksUiState.value.searchTerm)
     }
 }
