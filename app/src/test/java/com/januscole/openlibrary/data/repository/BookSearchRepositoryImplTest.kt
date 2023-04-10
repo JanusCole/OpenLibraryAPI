@@ -53,16 +53,16 @@ class BookSearchRepositoryImplTest {
     fun `Searching For A Book Titles Twice Returns A Cached List Of Books`() = runTest {
 
         // Setup
-        Mockito.`when`(mockBookSearchService.searchBooks(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_TERM_1)).thenReturn(
+        Mockito.`when`(mockBookSearchService.searchBooks(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)).thenReturn(
             MockBookSearchResults().getMockBookSearchResults().toBookList()
         ).thenThrow(RuntimeException())
 
-        bookSearchRepository.searchBooks(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_TERM_1)
+        bookSearchRepository.searchBooks(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)
 
         val expectedResult = MockBookSearchResults().getMockBookSearchResults()
 
         // Execute the test
-        val actualResult = bookSearchRepository.searchBooks(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_TERM_1)
+        val actualResult = bookSearchRepository.searchBooks(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)
 
         // Result
         assertEquals(expectedResult.docs!!.size, actualResult.size)

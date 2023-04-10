@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 
 const val SEARCH_BOOKS_UI_STATE = "SEARCH_BOOKS_UI_STATE"
+const val SEARCH_TERM = "SEARCH_TERM"
 
 @HiltViewModel
 class BooksSearchViewModel @Inject constructor(
@@ -29,6 +30,12 @@ class BooksSearchViewModel @Inject constructor(
 
     val searchBooksUiState =
         savedStateHandle.getStateFlow(SEARCH_BOOKS_UI_STATE, SearchBooksUiState())
+    val searchTerm =
+        savedStateHandle.getStateFlow(SEARCH_TERM, "")
+
+    fun updateSearchTerm(newSearchTerm: String) {
+        savedStateHandle[SEARCH_TERM] = newSearchTerm
+    }
 
     fun searchBooks(bookTitle: String) {
         viewModelScope.launch {
@@ -37,6 +44,7 @@ class BooksSearchViewModel @Inject constructor(
             when (val result = searchBooksUseCase(bookTitle)) {
                 is BookResult.Success<*> -> {
                     try {
+                        @Suppress("UNCHECKED_CAST")
                         val bookSearchResults = result.data as List<Book>
                         if (bookSearchResults.isEmpty()) {
                             savedStateHandle[SEARCH_BOOKS_UI_STATE] = searchBooksUiState.value.copy(

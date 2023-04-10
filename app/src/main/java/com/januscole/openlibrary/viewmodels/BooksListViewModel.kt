@@ -37,6 +37,7 @@ class BooksListViewModel @Inject constructor(
             when (val result = searchBooksUseCase(bookTitle)) {
                 is BookResult.Success<*> -> {
                     try {
+                        @Suppress("UNCHECKED_CAST")
                         savedStateHandle[DISPLAY_BOOKS_UI_STATE] =
                             displayBooksUiState.value.copy(
                                 books = result.data as List<Book>,

@@ -77,11 +77,9 @@ fun BooksListScreen(
                 LazyVerticalGrid(GridCells.Fixed(3)) {
                     items(items = it) {
                         BookCard(book = it, onClick = {
-                            it.title?.let { title ->
-                                navController.navigate(
-                                    OpenLibraryScreenRoutes.BOOK_DETAILS.route + "/" + bookTitle?.encodeNavParameter() + "/" + it.key.encodeNavParameter()
-                                )
-                            }
+                            navController.navigate(
+                                OpenLibraryScreenRoutes.BOOK_DETAILS.route + "/" + bookTitle?.encodeNavParameter() + "/" + it.key.encodeNavParameter()
+                            )
                         })
                     }
                 }

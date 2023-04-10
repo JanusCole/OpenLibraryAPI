@@ -32,7 +32,7 @@ fun BooksSearchScreen(
 ) {
 
     val uiState by bookSearchViewModel.searchBooksUiState.collectAsState()
-    var searchCriteria by remember { mutableStateOf("") }
+    val searchCriteria by bookSearchViewModel.searchTerm.collectAsState()
 
     if (uiState.books.isNotEmpty()) {
         // This is my least favorite solution to the problem of one time consumable events in
@@ -69,7 +69,7 @@ fun BooksSearchScreen(
                 OutlinedTextField(
                     value = searchCriteria,
                     onValueChange = {
-                        searchCriteria = it
+                        bookSearchViewModel.updateSearchTerm(it)
                     },
                     maxLines = 1,
                     modifier = Modifier
