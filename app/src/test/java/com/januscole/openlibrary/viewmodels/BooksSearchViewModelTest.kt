@@ -54,12 +54,14 @@ class BooksSearchViewModelTest {
     fun `Searching For A Book Titles Returns A List Of Books`() = runTest {
 
         // Setup
-        Mockito.`when`(mockSearchBooksUseCase.invoke(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)).thenReturn(
-            BookResult.Success(MockBookSearchResults().getMockBookSearchResults().toBookList())
-        )
+        Mockito.`when`(mockSearchBooksUseCase.invoke(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA))
+            .thenReturn(
+                BookResult.Success(MockBookSearchResults().getMockBookSearchResults().toBookList())
+            )
 
         val expectedResult = MockBookSearchResults().getMockBookSearchResults().toBookList()
-        booksSearchViewModel.searchBooks(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)
+        booksSearchViewModel.updateSearchTerm(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)
+        booksSearchViewModel.searchBooks()
 
         // Results
         val job = launch {
@@ -81,12 +83,16 @@ class BooksSearchViewModelTest {
     fun `Finding No Book Results Sets The Error In The UI State`() = runTest {
 
         // Setup
-        Mockito.`when`(mockSearchBooksUseCase.invoke(MockBookSearchResults.INVALID_BOOK_TITLE_SEARCH_CRITERIA)).thenReturn(
-            BookResult.Success(MockBookSearchResults().getEmptyMockBookSearchResults().toBookList())
-        )
+        Mockito.`when`(mockSearchBooksUseCase.invoke(MockBookSearchResults.INVALID_BOOK_TITLE_SEARCH_CRITERIA))
+            .thenReturn(
+                BookResult.Success(
+                    MockBookSearchResults().getEmptyMockBookSearchResults().toBookList()
+                )
+            )
 
         val expectedResult = listOf<Book>()
-        booksSearchViewModel.searchBooks(MockBookSearchResults.INVALID_BOOK_TITLE_SEARCH_CRITERIA)
+        booksSearchViewModel.updateSearchTerm(MockBookSearchResults.INVALID_BOOK_TITLE_SEARCH_CRITERIA)
+        booksSearchViewModel.searchBooks()
 
         // Results
         val job = launch {
@@ -108,12 +114,14 @@ class BooksSearchViewModelTest {
     fun `Failing Result Cast Sets The Error In The UI State`() = runTest {
 
         // Setup
-        Mockito.`when`(mockSearchBooksUseCase.invoke(MockBookSearchResults.INVALID_BOOK_TITLE_SEARCH_CRITERIA)).thenReturn(
-            BookResult.Success(MockBookSearchResults().getMockBookSearchResults())
-        )
+        Mockito.`when`(mockSearchBooksUseCase.invoke(MockBookSearchResults.INVALID_BOOK_TITLE_SEARCH_CRITERIA))
+            .thenReturn(
+                BookResult.Success(MockBookSearchResults().getMockBookSearchResults())
+            )
 
         val expectedResult = listOf<Book>()
-        booksSearchViewModel.searchBooks(MockBookSearchResults.INVALID_BOOK_TITLE_SEARCH_CRITERIA)
+        booksSearchViewModel.updateSearchTerm(MockBookSearchResults.INVALID_BOOK_TITLE_SEARCH_CRITERIA)
+        booksSearchViewModel.searchBooks()
 
         // Results
         val job = launch {
@@ -135,12 +143,14 @@ class BooksSearchViewModelTest {
     fun `Receiving An Error Sets The Error In The UI State`() = runTest {
 
         // Setup
-        Mockito.`when`(mockSearchBooksUseCase.invoke(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)).thenReturn(
-            BookResult.Failure(Exception())
-        )
+        Mockito.`when`(mockSearchBooksUseCase.invoke(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA))
+            .thenReturn(
+                BookResult.Failure(Exception())
+            )
 
         val expectedResult = listOf<Book>()
-        booksSearchViewModel.searchBooks(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)
+        booksSearchViewModel.updateSearchTerm(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)
+        booksSearchViewModel.searchBooks()
 
         // Results
         val job = launch {
@@ -178,6 +188,18 @@ class BooksSearchViewModelTest {
 
         booksSearchViewModel.consumeSearchEvent()
 
-        assertEquals(booksSearchViewModel.searchBooksUiState.value, BooksSearchViewModel.SearchBooksUiState())
+        assertEquals(
+            booksSearchViewModel.searchBooksUiState.value,
+            BooksSearchViewModel.SearchBooksUiState()
+        )
+    }
+
+    @Test
+    fun `Update Search Terms`() {
+        booksSearchViewModel.updateSearchTerm(MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA)
+        assertEquals(
+            MockBookSearchResults.VALID_BOOK_TITLE_SEARCH_CRITERIA,
+            booksSearchViewModel.searchBooksUiState.value.searchTerm
+        )
     }
 }

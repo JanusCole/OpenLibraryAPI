@@ -32,14 +32,13 @@ fun BooksSearchScreen(
 ) {
 
     val uiState by bookSearchViewModel.searchBooksUiState.collectAsState()
-    val searchCriteria by bookSearchViewModel.searchTerm.collectAsState()
 
     if (uiState.books.isNotEmpty()) {
         // This is my least favorite solution to the problem of one time consumable events in
         // JetPack Compose. However, this is what Google currently recommends and so resistance is futile
         // https://developer.android.com/topic/architecture/ui-layer/events#compose_2
         bookSearchViewModel.consumeSearchEvent()
-        navController.navigate(OpenLibraryScreenRoutes.BOOKS_LIST.route + "/" + searchCriteria.encodeNavParameter())
+        navController.navigate(OpenLibraryScreenRoutes.BOOKS_LIST.route + "/" + uiState.searchTerm.encodeNavParameter())
     }
 
     Box(
@@ -67,7 +66,7 @@ fun BooksSearchScreen(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 OutlinedTextField(
-                    value = searchCriteria,
+                    value = uiState.searchTerm,
                     onValueChange = {
                         bookSearchViewModel.updateSearchTerm(it)
                     },
@@ -91,9 +90,9 @@ fun BooksSearchScreen(
             }
             Button(
                 onClick = {
-                    bookSearchViewModel.searchBooks(searchCriteria)
+                    bookSearchViewModel.searchBooks()
                 },
-                enabled = !uiState.isLoading && searchCriteria.isNotBlank(),
+                enabled = !uiState.isLoading && uiState.searchTerm.isNotBlank(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(dimensionResource(id = R.dimen.standard_padding))
