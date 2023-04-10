@@ -79,7 +79,7 @@ fun BooksListScreen(
                         BookCard(book = it, onClick = {
                             it.title?.let { title ->
                                 navController.navigate(
-                                    OpenLibraryScreenRoutes.BOOK_DETAILS.route + "/" + title.encodeNavParameter() + "/" + it.key.encodeNavParameter()
+                                    OpenLibraryScreenRoutes.BOOK_DETAILS.route + "/" + bookTitle?.encodeNavParameter() + "/" + it.key.encodeNavParameter()
                                 )
                             }
                         })
