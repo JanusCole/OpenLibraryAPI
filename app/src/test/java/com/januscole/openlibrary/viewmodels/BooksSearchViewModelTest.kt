@@ -75,7 +75,6 @@ class BooksSearchViewModelTest {
                 assertFalse(result.isLoading)
             }
         }
-        advanceTimeBy(500)
         job.cancel()
     }
 
@@ -106,7 +105,6 @@ class BooksSearchViewModelTest {
                 assertFalse(result.isLoading)
             }
         }
-        advanceTimeBy(500)
         job.cancel()
     }
 
@@ -135,7 +133,6 @@ class BooksSearchViewModelTest {
                 assertFalse(result.isLoading)
             }
         }
-        advanceTimeBy(500)
         job.cancel()
     }
 
@@ -164,7 +161,6 @@ class BooksSearchViewModelTest {
                 assertFalse(result.isLoading)
             }
         }
-        advanceTimeBy(500)
         job.cancel()
     }
 

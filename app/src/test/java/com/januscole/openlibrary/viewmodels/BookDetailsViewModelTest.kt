@@ -80,7 +80,6 @@ class BookDetailsViewModelTest {
                 assertFalse(result.isLoading)
             }
         }
-        advanceTimeBy(500)
         job.cancel()
     }
 
@@ -115,7 +114,6 @@ class BookDetailsViewModelTest {
                 assertFalse(result.isLoading)
             }
         }
-        advanceTimeBy(500)
         job.cancel()
     }
 
@@ -150,7 +148,6 @@ class BookDetailsViewModelTest {
                 assertFalse(result.isLoading)
             }
         }
-        advanceTimeBy(500)
         job.cancel()
     }
 
